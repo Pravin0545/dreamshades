@@ -124,7 +124,10 @@ const EnrollNow = () => {
     } catch (error) {
       toast({
         title: "❌ Enrollment Failed",
-        description: error.message || "Something went wrong. Please try again.",
+        description:
+          error && typeof error === "object" && "message" in error
+            ? (error as { message?: string }).message
+            : "Something went wrong. Please try again.",
         variant: "destructive",
       });
     } finally {

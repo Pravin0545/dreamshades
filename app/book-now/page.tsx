@@ -90,7 +90,13 @@ const BookNow = () => {
     } catch (error) {
       toast({
         title: "❌ Booking Failed",
-        description: error.message || "Something went wrong. Please try again.",
+        description:
+          typeof error === "object" &&
+          error !== null &&
+          "message" in error &&
+          typeof (error as { message?: string }).message === "string"
+            ? (error as { message: string }).message
+            : "Something went wrong. Please try again.",
         variant: "destructive",
       });
     } finally {
