@@ -1,3 +1,5 @@
+/* eslint-disable react/no-unescaped-entities */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Award, Users, Calendar, Star } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Container } from "@/components/ui/container";

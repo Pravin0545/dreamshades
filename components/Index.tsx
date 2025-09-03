@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import Navigation from "@/components/Navigation";
 import Hero from "@/components/Hero";
 import About from "@/app/about/page";

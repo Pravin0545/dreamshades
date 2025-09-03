@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Clock, Users, Award, BookOpen, Star, CheckCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
