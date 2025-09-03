@@ -6,7 +6,6 @@ import {
   Phone,
   Mail,
   Clock,
-  Send,
   Instagram,
   Facebook,
   Youtube,
@@ -304,4 +303,15 @@ export const testimonials = [
     rating: 5,
     image: "📸",
   },
+];
+
+export const stats = [
+  { icon: Users, value: "500+", label: "Happy Clients", delay: "delay-0" },
+  {
+    icon: Award,
+    value: "200+",
+    label: "Certified Students",
+    delay: "delay-200",
+  },
+  { icon: Star, value: "10+", label: "Years Experience", delay: "delay-400" },
 ];

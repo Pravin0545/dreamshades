@@ -1,59 +1,9 @@
 /* eslint-disable react/no-unescaped-entities */
 import { Star, Quote } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
+import { testimonials } from "@/constant/constant";
 
 const Testimonials = () => {
-  const testimonials = [
-    {
-      name: "Rajesh & Priya Wedding",
-      role: "Bridal Client",
-      content:
-        "Absolutely stunning work! Priya made me look like a dream on my wedding day. The makeup lasted 12+ hours and looked flawless in all photos. Highly recommend!",
-      rating: 5,
-      image: "👰",
-    },
-    {
-      name: "Sneha Kapoor",
-      role: "Makeup Artist Graduate",
-      content:
-        "The professional diploma course changed my life! The training was comprehensive and now I run my own successful makeup studio. Thank you for the amazing mentorship!",
-      rating: 5,
-      image: "🎨",
-    },
-    {
-      name: "Rohit & Meera",
-      role: "Party Makeup Client",
-      content:
-        "Perfect party makeup for our anniversary celebration. The team was professional, punctual, and the results were gorgeous. Will definitely book again!",
-      rating: 5,
-      image: "✨",
-    },
-    {
-      name: "Anjali Sharma",
-      role: "Bridal Specialist Student",
-      content:
-        "Best investment I ever made! The bridal makeup course was detailed and practical. I'm now booked solid with bridal clients. Excellent training program!",
-      rating: 5,
-      image: "💄",
-    },
-    {
-      name: "Kavya & Family",
-      role: "Group Booking",
-      content:
-        "Booked for our family function - they handled 8 people perfectly! Everyone looked amazing and the service was top-notch. Very professional team.",
-      rating: 5,
-      image: "👨‍👩‍👧‍👦",
-    },
-    {
-      name: "Deepika Rao",
-      role: "Advanced Course Graduate",
-      content:
-        "The advanced techniques I learned here are incredible. HD makeup, airbrush training, everything was hands-on. Now working with top photographers!",
-      rating: 5,
-      image: "📸",
-    },
-  ];
-
   return (
     <section className="py-20 bg-gradient-primary">
       <div className="container mx-auto px-4">

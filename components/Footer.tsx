@@ -1,3 +1,4 @@
+import { courses, navItems, services } from "@/constant/constant";
 import {
   Sparkles,
   MapPin,
@@ -8,34 +9,11 @@ import {
   Youtube,
   Heart,
 } from "lucide-react";
+import Link from "next/link";
 
 const Footer = () => {
-  const quickLinks = [
-    { name: "Home", href: "#home" },
-    { name: "About", href: "#about" },
-    { name: "Services", href: "#services" },
-    { name: "Training", href: "#training" },
-    { name: "Contact", href: "#contact" },
-  ];
-
-  const services = [
-    "Bridal Makeup",
-    "Party Makeup",
-    "Hair Styling",
-    "HD Makeup",
-    "Group Bookings",
-  ];
-
-  const courses = [
-    "Basic Makeup Course",
-    "Professional Diploma",
-    "Bridal Specialist",
-    "Advanced Techniques",
-    "Business Training",
-  ];
-
   return (
-    <footer className="bg-black text-white text-background">
+    <footer className="bg-black text-white">
       <div className="container mx-auto px-4 py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Brand */}
@@ -46,7 +24,7 @@ const Footer = () => {
                 DreamShades Makeover Studio
               </span>
             </div>
-            <p className="text-background/80 leading-relaxed">
+            <p className="text-gray-400 leading-relaxed">
               Professional makeup services and certified training courses at
               DreamShades Makeover Studio & Unisex Professional Academy.
               Transform your beauty journey with expert guidance and premium
@@ -54,20 +32,23 @@ const Footer = () => {
             </p>
             <div className="flex space-x-4">
               <a
-                href="#"
-                className="bg-pink-500 text-white p-2 rounded-full hover:scale-110 transition-transform"
+                href="https://instagram.com"
+                aria-label="Instagram"
+                className="bg-pink-500 p-2 rounded-full hover:scale-110 transition-transform"
               >
                 <Instagram className="h-4 w-4" />
               </a>
               <a
-                href="#"
-                className="bg-blue-600 text-white p-2 rounded-full hover:scale-110 transition-transform"
+                href="https://facebook.com"
+                aria-label="Facebook"
+                className="bg-blue-600 p-2 rounded-full hover:scale-110 transition-transform"
               >
                 <Facebook className="h-4 w-4" />
               </a>
               <a
-                href="#"
-                className="bg-red-600 text-white p-2 rounded-full hover:scale-110 transition-transform"
+                href="https://youtube.com"
+                aria-label="YouTube"
+                className="bg-red-600 p-2 rounded-full hover:scale-110 transition-transform"
               >
                 <Youtube className="h-4 w-4" />
               </a>
@@ -75,21 +56,22 @@ const Footer = () => {
           </div>
 
           {/* Quick Links */}
-          <div>
+          <nav>
             <h3 className="font-semibold text-lg mb-4">Quick Links</h3>
             <ul className="space-y-2">
-              {quickLinks.map((link) => (
+              {navItems.map((link) => (
                 <li key={link.name}>
-                  <a
+                  <Link
                     href={link.href}
-                    className="text-background/80 hover:text-accent transition-colors duration-300"
+                    prefetch={true}
+                    className="text-gray-400 hover:text-accent transition-colors duration-300"
                   >
                     {link.name}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
-          </div>
+          </nav>
 
           {/* Services */}
           <div>
@@ -97,7 +79,7 @@ const Footer = () => {
             <ul className="space-y-2">
               {services.map((service) => (
                 <li key={service}>
-                  <span className="text-background/80">{service}</span>
+                  <span className="text-gray-400">{service}</span>
                 </li>
               ))}
             </ul>
@@ -109,7 +91,7 @@ const Footer = () => {
             <div className="space-y-3">
               <div className="flex items-start space-x-3">
                 <MapPin className="h-5 w-5 text-accent mt-0.5 flex-shrink-0" />
-                <span className="text-background/80">
+                <span className="text-gray-400">
                   Bhagya Laxmi Residence, 1st floor
                   <br />
                   Manikonda Rd, near Bhimas Hotel
@@ -121,18 +103,22 @@ const Footer = () => {
               </div>
               <div className="flex items-center space-x-3">
                 <Phone className="h-5 w-5 text-accent flex-shrink-0" />
-                <span className="text-background/80">+91 98765 43210</span>
+                <a href="tel:+919876543210" className="text-gray-400">
+                  +91 98765 43210
+                </a>
               </div>
               <div className="flex items-center space-x-3">
                 <Mail className="h-5 w-5 text-accent flex-shrink-0" />
-                <span className="text-background/80">info@dreamshades.com</span>
+                <a href="mailto:info@dreamshades.com" className="text-gray-400">
+                  info@dreamshades.com
+                </a>
               </div>
             </div>
           </div>
         </div>
 
         {/* Training Courses */}
-        <div className="border-t border-background/20 mt-12 pt-8">
+        <div className="border-t border-gray-700 mt-12 pt-8">
           <h3 className="font-semibold text-lg mb-4 text-center">
             Training Courses
           </h3>
@@ -140,7 +126,7 @@ const Footer = () => {
             {courses.map((course) => (
               <span
                 key={course}
-                className="bg-background/10 text-background px-3 py-1 rounded-full text-sm"
+                className="bg-gray-800 text-gray-200 px-3 py-1 rounded-full text-sm"
               >
                 {course}
               </span>
@@ -149,12 +135,12 @@ const Footer = () => {
         </div>
 
         {/* Bottom Bar */}
-        <div className="border-t border-background/20 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
-          <p className="text-background/60 text-sm">
+        <div className="border-t border-gray-700 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
+          <p className="text-gray-500 text-sm">
             © 2024 DreamShades Makeover Studio & Unisex Professional Academy.
             All rights reserved.
           </p>
-          <p className="text-background/60 text-sm flex items-center mt-2 md:mt-0">
+          <p className="text-gray-500 text-sm flex items-center mt-2 md:mt-0">
             Made with <Heart className="h-4 w-4 text-accent mx-1" /> for beauty
             enthusiasts
           </p>

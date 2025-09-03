@@ -25,6 +25,7 @@ export default function ActiveLink({
     <Link
       href={href}
       className={cn(className, isActive && activeClassName)}
+      prefetch={true}
       {...props}
     >
       {children}

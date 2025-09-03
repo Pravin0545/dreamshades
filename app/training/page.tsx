@@ -1,5 +1,4 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import { Clock, Users, Award, BookOpen, Star, CheckCircle } from "lucide-react";
+import { Clock, Users, Award, Star, CheckCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -9,7 +8,6 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-
 import trainingImage from "@/assets/training-classroom.jpg";
 import Image from "next/image";
 import Link from "next/link";
@@ -78,7 +76,7 @@ const Training = () => {
   ];
 
   return (
-    <section id="training" className="py-20 bg-background bg-gradient-primary">
+    <section id="training" className="py-20 bg-gradient-primary">
       <div className="container mx-auto px-4">
         {/* Header */}
         <div className="text-center mb-16 animate-fade-in-up">
@@ -100,12 +98,10 @@ const Training = () => {
             <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
               <div className="text-center text-white drop-shadow-lg">
                 <Award className="h-16 w-16 mx-auto mb-4" />
-                <h3 className="text-2xl md:text-3xl font-bold mb-2 bg-gradient-to-r from-pink-400 to-purple-600 bg-clip-text text-white">
+                <h3 className="text-2xl md:text-3xl font-bold mb-2 bg-gradient-to-r from-pink-400 to-purple-600 bg-clip-text text-transparent">
                   Get Certified
                 </h3>
-                <p className="text-lg text-white">
-                  Join 200+ successful makeup artists
-                </p>
+                <p className="text-lg">Join 200+ successful makeup artists</p>
               </div>
             </div>
           </div>
@@ -116,8 +112,10 @@ const Training = () => {
           {courses.map((course, index) => (
             <Card
               key={course.title}
-              className={`relative group hover:shadow hover:bg-emerald-300 bg-green-200/90 transition-all duration-300 hover:-translate-y-2 animate-scale-in ${
-                course.featured ? "ring-2 ring-primary shadow-glow" : ""
+              className={`relative group hover:bg-emerald-300 bg-green-200/90 transition-all duration-300 hover:-translate-y-2 animate-scale-in ${
+                course.featured
+                  ? "ring-2 ring-primary shadow-luxury"
+                  : "shadow-soft"
               }`}
               style={{ animationDelay: `${index * 0.1}s` }}
             >
@@ -160,9 +158,9 @@ const Training = () => {
                   <h4 className="font-semibold text-sm text-foreground">
                     Course Modules:
                   </h4>
-                  {course.modules.map((module, idx) => (
+                  {course.modules.map((module) => (
                     <div
-                      key={idx}
+                      key={module}
                       className="flex items-start text-sm text-muted-foreground"
                     >
                       <CheckCircle className="h-4 w-4 text-primary mr-2 mt-0.5 flex-shrink-0" />
@@ -173,7 +171,7 @@ const Training = () => {
 
                 <Button
                   variant={course.featured ? "luxury" : "default"}
-                  className="w-full "
+                  className="w-full"
                   asChild
                 >
                   <Link href="/enroll-now">Enroll Now</Link>

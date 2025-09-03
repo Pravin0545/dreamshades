@@ -58,16 +58,12 @@ const Navigation = () => {
             <ActiveLink
               key={item.name}
               href={item.href}
-              className="text-foreground hover:text-primary transition-colors duration-300 font-medium hover:scale-110"
+              className="text-foreground hover:text-primary transition-colors duration-300 font-medium hover:scale-y-120"
               activeClassName="text-emerald-300 font-semibold"
             >
               {item.name}
             </ActiveLink>
           ))}
-
-          <div className="flex items-center justify-between py-2">
-            <span className="text-sm text-muted-foreground">Theme</span>
-          </div>
         </div>
       </div>
     </nav>

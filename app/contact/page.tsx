@@ -1,16 +1,6 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 import { useState } from "react";
-import {
-  MapPin,
-  Phone,
-  Mail,
-  Clock,
-  Send,
-  Instagram,
-  Facebook,
-  Youtube,
-} from "lucide-react";
+import { MapPin, Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -19,6 +9,7 @@ import { useToast } from "@/hooks/use-toast";
 import { contactInfo, socialLinks } from "@/constant/constant";
 
 const Contact = () => {
+  const { toast } = useToast();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -26,7 +17,11 @@ const Contact = () => {
     service: "",
     message: "",
   });
-  const { toast } = useToast();
+
+  const handleChange = (field: string, value: string) => {
+    setFormData((prev) => ({ ...prev, [field]: value }));
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     toast({
@@ -35,8 +30,9 @@ const Contact = () => {
     });
     setFormData({ name: "", email: "", phone: "", service: "", message: "" });
   };
+
   return (
-    <section id="contact" className="py-20 bg-background  bg-gradient-primary">
+    <section id="contact" className="py-20 bg-gradient-primary">
       <div className="container mx-auto px-4">
         {/* Header */}
         <div className="text-center mb-16 animate-fade-in-up">
@@ -49,11 +45,11 @@ const Contact = () => {
           </p>
         </div>
 
-        <div className="max-w-6xl mx-auto ">
+        <div className="max-w-6xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             {/* Contact Form */}
             <div className="animate-fade-in-up">
-              <Card className="bg-green-200/90 ">
+              <Card className="bg-green-200/90">
                 <CardHeader>
                   <CardTitle className="text-2xl font-serif">
                     Send us a Message
@@ -61,16 +57,14 @@ const Contact = () => {
                 </CardHeader>
                 <CardContent>
                   <form onSubmit={handleSubmit} className="space-y-6">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="grid md:grid-cols-2 gap-4">
                       <div>
                         <label className="block text-sm font-medium mb-2">
                           Name *
                         </label>
                         <Input
                           value={formData.name}
-                          onChange={(e) =>
-                            setFormData({ ...formData, name: e.target.value })
-                          }
+                          onChange={(e) => handleChange("name", e.target.value)}
                           placeholder="Your full name"
                           required
                         />
@@ -82,7 +76,7 @@ const Contact = () => {
                         <Input
                           value={formData.phone}
                           onChange={(e) =>
-                            setFormData({ ...formData, phone: e.target.value })
+                            handleChange("phone", e.target.value)
                           }
                           placeholder="Your phone number"
                           required
@@ -97,9 +91,7 @@ const Contact = () => {
                       <Input
                         type="email"
                         value={formData.email}
-                        onChange={(e) =>
-                          setFormData({ ...formData, email: e.target.value })
-                        }
+                        onChange={(e) => handleChange("email", e.target.value)}
                         placeholder="your.email@example.com"
                         required
                       />
@@ -112,7 +104,7 @@ const Contact = () => {
                       <Input
                         value={formData.service}
                         onChange={(e) =>
-                          setFormData({ ...formData, service: e.target.value })
+                          handleChange("service", e.target.value)
                         }
                         placeholder="Bridal makeup, Training course, etc."
                       />
@@ -125,7 +117,7 @@ const Contact = () => {
                       <Textarea
                         value={formData.message}
                         onChange={(e) =>
-                          setFormData({ ...formData, message: e.target.value })
+                          handleChange("message", e.target.value)
                         }
                         placeholder="Tell us about your requirements..."
                         rows={4}
@@ -141,12 +133,12 @@ const Contact = () => {
               </Card>
             </div>
 
-            {/* Contact Information */}
+            {/* Contact Info + Socials */}
             <div className="space-y-6 animate-scale-in">
               {contactInfo.map((info, index) => (
                 <Card
                   key={info.title}
-                  className="hover:bg-green-200 transition-all duration-300 cursor-pointer group bg-green-200/90  "
+                  className="hover:bg-green-200 transition-all duration-300 cursor-pointer group bg-green-200/90"
                   style={{ animationDelay: `${index * 0.1}s` }}
                 >
                   <CardContent className="p-6">
@@ -162,7 +154,6 @@ const Contact = () => {
                           {info.content}
                         </p>
                         <Button
-                          // variant="outline"
                           size="sm"
                           className="group-hover:bg-primary group-hover:text-primary-foreground transition-colors"
                         >
@@ -174,10 +165,10 @@ const Contact = () => {
                 </Card>
               ))}
 
-              {/* Social Media Links */}
-              <Card className="bg-green-200/90 ">
+              {/* Social Links */}
+              <Card className="bg-green-200/90">
                 <CardContent className="p-6">
-                  <h3 className="font-semibold text-lg mb-4 text-foreground ">
+                  <h3 className="font-semibold text-lg mb-4 text-foreground">
                     Follow Us
                   </h3>
                   <div className="flex space-x-4">
@@ -188,6 +179,7 @@ const Contact = () => {
                         className={`${social.color} text-white p-3 rounded-full hover:scale-110 transition-transform`}
                         aria-label={social.name}
                         target="_blank"
+                        rel="noopener noreferrer"
                       >
                         <social.icon className="h-5 w-5" />
                       </a>
@@ -200,8 +192,8 @@ const Contact = () => {
                 </CardContent>
               </Card>
 
-              {/* Map Placeholder */}
-              <Card className="bg-green-200/90  ">
+              {/* Map */}
+              <Card className="bg-green-200/90">
                 <CardContent className="p-0">
                   <div className="bg-muted h-48 flex items-center justify-center text-muted-foreground">
                     <div className="text-center">

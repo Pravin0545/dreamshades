@@ -7,9 +7,8 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-
-import makeupServiceImage from "@/assets/makeup-service.jpg";
 import bridalMakeupImage from "@/assets/bridal-makeup.jpg";
+import makeupServiceImage from "@/assets/makeup-service.jpg";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -69,8 +68,9 @@ const Services = () => {
   ];
 
   return (
-    <section id="services" className="py-20  bg-gradient-primary">
+    <section id="services" className="py-20 bg-gradient-primary">
       <div className="container mx-auto px-4">
+        {/* Header */}
         <div className="text-center mb-16 animate-fade-in-up">
           <h2 className="font-serif text-4xl md:text-5xl font-bold mb-6 text-foreground">
             Our Premium Services
@@ -81,20 +81,22 @@ const Services = () => {
           </p>
         </div>
 
+        {/* Services Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto">
           {services.map((service, index) => (
             <Card
               key={service.title}
-              className="group hover:bg-emerald-300 bg-green-200/90  transition-all duration-300 hover:-translate-y-2 overflow-hidden animate-scale-in"
+              className="group hover:bg-emerald-300 bg-green-200/90 transition-all duration-300 hover:-translate-y-2 overflow-hidden animate-scale-in"
               style={{ animationDelay: `${index * 0.1}s` }}
             >
+              {/* Service Image */}
               <div className="relative h-48 overflow-hidden">
                 <Image
                   src={service.image}
                   alt={service.title}
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
                 <div className="absolute top-4 left-4">
                   <div className="bg-primary/20 backdrop-blur-sm rounded-full p-3 text-white">
                     <service.icon className="h-6 w-6" />
@@ -102,6 +104,7 @@ const Services = () => {
                 </div>
               </div>
 
+              {/* Card Content */}
               <CardHeader>
                 <div className="flex justify-between items-start mb-2">
                   <CardTitle className="text-xl font-semibold">
@@ -123,13 +126,13 @@ const Services = () => {
                       key={feature}
                       className="flex items-center text-sm text-muted-foreground"
                     >
-                      <div className="w-2 h-2 bg-gradient-primary rounded-full mr-2"></div>
+                      <div className="w-2 h-2 bg-gradient-primary rounded-full mr-2" />
                       {feature}
                     </div>
                   ))}
                 </div>
 
-                <Button variant={"luxury"} className="w-full group" asChild>
+                <Button variant="luxury" className="w-full group" asChild>
                   <Link href="/book-now">
                     Book Now
                     <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
