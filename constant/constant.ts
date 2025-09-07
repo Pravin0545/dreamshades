@@ -17,7 +17,6 @@ import {
 
 import makeupServiceImage from "@/assets/makeup-service.jpg";
 import bridalMakeupImage from "@/assets/bridal-makeup.jpg";
-import { link } from "fs";
 
 export const certifications = [
   "International Makeup Artist Certification",
@@ -167,7 +166,7 @@ export const contactInfo = [
     title: "Studio Hours",
     content: "Mon-Sat: 10:00 AM - 6:00 PM\nSun: Closed",
     action: "Book Appointment",
-    link: "",
+    link: "/book-now",
   },
 ];
 
