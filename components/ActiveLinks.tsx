@@ -9,6 +9,7 @@ interface ActiveLinkProps extends LinkProps {
   children: React.ReactNode;
   className?: string;
   activeClassName?: string;
+  style?: React.CSSProperties;
 }
 
 export default function ActiveLink({
