@@ -1,4 +1,4 @@
-import { ArrowRight, Palette, Users, Camera, Scissors } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -7,86 +7,30 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import bridalMakeupImage from "@/assets/bridal-makeup.jpg";
-import makeupServiceImage from "@/assets/makeup-service.jpg";
 import Image from "next/image";
 import Link from "next/link";
+import { servicesDetails } from "@/constant/constant";
 
 const Services = () => {
-  const services = [
-    {
-      icon: Palette,
-      title: "Bridal Makeup",
-      description:
-        "Complete bridal makeover with HD makeup, hairstyling, and pre-wedding trials",
-      price: "Starting from ₹15,000",
-      image: bridalMakeupImage,
-      features: [
-        "HD/3D Makeup",
-        "Hair Styling",
-        "Pre-wedding Trial",
-        "Touch-up Kit",
-      ],
-    },
-    {
-      icon: Camera,
-      title: "Party & Event Makeup",
-      description:
-        "Glamorous makeup for parties, events, and special occasions",
-      price: "Starting from ₹5,000",
-      image: makeupServiceImage,
-      features: [
-        "Party Makeup",
-        "Event Styling",
-        "Photo Ready",
-        "Long Lasting",
-      ],
-    },
-    {
-      icon: Scissors,
-      title: "Hair Styling",
-      description:
-        "Professional hair styling, cuts, and treatments for all occasions",
-      price: "Starting from ₹2,500",
-      image: makeupServiceImage,
-      features: ["Styling", "Cutting", "Treatment", "Color"],
-    },
-    {
-      icon: Users,
-      title: "Group Bookings",
-      description:
-        "Special packages for bridal parties, family functions, and group events",
-      price: "Custom Pricing",
-      image: bridalMakeupImage,
-      features: [
-        "Group Discount",
-        "On-location",
-        "Multiple Artists",
-        "Package Deals",
-      ],
-    },
-  ];
-
   return (
-    <section id="services" className="py-20 bg-gradient-primary">
+    <section id="services" className="py-20 bg-[color:var(--background)]">
       <div className="container mx-auto px-4">
         {/* Header */}
         <div className="text-center mb-16 animate-fade-in-up">
-          <h2 className="font-serif text-4xl md:text-5xl font-bold mb-6 text-foreground">
+          <h2 className="font-serif text-4xl md:text-5xl font-bold mb-6 text-[color:var(--foreground)]">
             Our Premium Services
           </h2>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Experience luxury beauty treatments and transformations with our
-            expert team
+          <p className="text-xl text-[color:var(--muted-foreground)] max-w-2xl mx-auto">
+            Experience luxury beauty and transformations with our expert team
           </p>
         </div>
 
         {/* Services Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto">
-          {services.map((service, index) => (
+          {servicesDetails.map((service, index) => (
             <Card
               key={service.title}
-              className="group hover:bg-emerald-300 bg-green-200/90 transition-all duration-300 hover:-translate-y-2 overflow-hidden animate-scale-in"
+              className="group bg-[color:var(--muted)] hover:shadow-luxury transition-all duration-300 hover:-translate-y-2 overflow-hidden animate-scale-in"
               style={{ animationDelay: `${index * 0.1}s` }}
             >
               {/* Service Image */}
@@ -98,7 +42,7 @@ const Services = () => {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
                 <div className="absolute top-4 left-4">
-                  <div className="bg-primary/20 backdrop-blur-sm rounded-full p-3 text-white">
+                  <div className="bg-[color:var(--primary)]/70 backdrop-blur-sm rounded-full p-3 text-[color:var(--primary-foreground)]">
                     <service.icon className="h-6 w-6" />
                   </div>
                 </div>
@@ -107,14 +51,14 @@ const Services = () => {
               {/* Card Content */}
               <CardHeader>
                 <div className="flex justify-between items-start mb-2">
-                  <CardTitle className="text-xl font-semibold">
+                  <CardTitle className="text-xl font-semibold text-[color:var(--foreground)]">
                     {service.title}
                   </CardTitle>
-                  <span className="text-primary font-semibold text-sm">
+                  <span className="text-[color:var(--accent)] font-semibold text-sm">
                     {service.price}
                   </span>
                 </div>
-                <CardDescription className="text-base">
+                <CardDescription className="text-base text-[color:var(--muted-foreground)]">
                   {service.description}
                 </CardDescription>
               </CardHeader>
@@ -124,7 +68,7 @@ const Services = () => {
                   {service.features.map((feature) => (
                     <div
                       key={feature}
-                      className="flex items-center text-sm text-muted-foreground"
+                      className="flex items-center text-sm text-[color:var(--muted-foreground)]"
                     >
                       <div className="w-2 h-2 bg-gradient-primary rounded-full mr-2" />
                       {feature}
@@ -132,7 +76,7 @@ const Services = () => {
                   ))}
                 </div>
 
-                <Button variant="luxury" className="w-full group" asChild>
+                <Button variant="secondary" className="w-full group" asChild>
                   <Link href="/book-now">
                     Book Now
                     <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />

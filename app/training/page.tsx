@@ -76,14 +76,14 @@ const Training = () => {
   ];
 
   return (
-    <section id="training" className="py-20 bg-gradient-primary">
+    <section id="training" className="py-20 bg-[color:var(--background)]">
       <div className="container mx-auto px-4">
         {/* Header */}
         <div className="text-center mb-16 animate-fade-in-up">
-          <h2 className="font-serif text-4xl md:text-5xl font-bold mb-6 text-foreground">
+          <h2 className="font-serif text-4xl md:text-5xl font-bold mb-6 text-[color:var(--foreground)]">
             Professional Training Courses
           </h2>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto mb-8">
+          <p className="text-xl text-[color:var(--muted-foreground)] max-w-3xl mx-auto mb-8">
             Launch your career in makeup artistry with our industry-leading
             certification programs
           </p>
@@ -98,7 +98,7 @@ const Training = () => {
             <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
               <div className="text-center text-white drop-shadow-lg">
                 <Award className="h-16 w-16 mx-auto mb-4" />
-                <h3 className="text-2xl md:text-3xl font-bold mb-2 bg-gradient-to-r from-pink-400 to-purple-600 bg-clip-text text-transparent">
+                <h3 className="text-2xl md:text-3xl font-bold mb-2 bg-gradient-primary bg-clip-text text-transparent">
                   Get Certified
                 </h3>
                 <p className="text-lg">Join 200+ successful makeup artists</p>
@@ -112,16 +112,16 @@ const Training = () => {
           {courses.map((course, index) => (
             <Card
               key={course.title}
-              className={`relative group hover:bg-emerald-300 bg-green-200/90 transition-all duration-300 hover:-translate-y-2 animate-scale-in ${
+              className={`relative group bg-[color:var(--muted)] hover:shadow-luxury transition-all duration-300 hover:-translate-y-2 animate-scale-in ${
                 course.featured
-                  ? "ring-2 ring-primary shadow-luxury"
+                  ? "ring-2 ring-[color:var(--primary)] shadow-luxury"
                   : "shadow-soft"
               }`}
               style={{ animationDelay: `${index * 0.1}s` }}
             >
               {course.featured && (
                 <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
-                  <Badge className="bg-gradient-primary text-primary-foreground px-4 py-1">
+                  <Badge variant="secondary" className="px-4 py-1">
                     Most Popular
                   </Badge>
                 </div>
@@ -130,50 +130,46 @@ const Training = () => {
               <CardHeader>
                 <div className="flex justify-between items-start mb-2">
                   <Badge variant="secondary">{course.level}</Badge>
-                  <span className="text-2xl font-bold text-primary">
+                  <span className="text-2xl font-bold text-[color:var(--accent)]">
                     {course.price}
                   </span>
                 </div>
-                <CardTitle className="text-xl font-semibold mb-2">
+                <CardTitle className="text-xl font-semibold mb-2 text-[color:var(--foreground)]">
                   {course.title}
                 </CardTitle>
-                <CardDescription className="text-base">
+                <CardDescription className="text-base text-[color:var(--muted-foreground)]">
                   {course.description}
                 </CardDescription>
               </CardHeader>
 
               <CardContent>
-                <div className="flex items-center gap-4 mb-6 text-sm text-muted-foreground">
+                <div className="flex items-center gap-4 mb-6 text-sm text-[color:var(--muted-foreground)]">
                   <div className="flex items-center">
-                    <Clock className="h-4 w-4 mr-1" />
+                    <Clock className="h-4 w-4 mr-1 text-[color:var(--accent)]" />
                     {course.duration}
                   </div>
                   <div className="flex items-center">
-                    <Users className="h-4 w-4 mr-1" />
+                    <Users className="h-4 w-4 mr-1 text-[color:var(--accent)]" />
                     {course.students} students
                   </div>
                 </div>
 
                 <div className="space-y-2 mb-6">
-                  <h4 className="font-semibold text-sm text-foreground">
+                  <h4 className="font-semibold text-sm text-[color:var(--foreground)]">
                     Course Modules:
                   </h4>
                   {course.modules.map((module) => (
                     <div
                       key={module}
-                      className="flex items-start text-sm text-muted-foreground"
+                      className="flex items-start text-sm text-[color:var(--muted-foreground)]"
                     >
-                      <CheckCircle className="h-4 w-4 text-primary mr-2 mt-0.5 flex-shrink-0" />
+                      <CheckCircle className="h-4 w-4 text-[color:var(--accent)] mr-2 mt-0.5 flex-shrink-0" />
                       {module}
                     </div>
                   ))}
                 </div>
 
-                <Button
-                  variant={course.featured ? "luxury" : "default"}
-                  className="w-full"
-                  asChild
-                >
+                <Button variant={"secondary"} className="w-full" asChild>
                   <Link href="/enroll-now">Enroll Now</Link>
                 </Button>
               </CardContent>
@@ -182,12 +178,12 @@ const Training = () => {
         </div>
 
         {/* Certification Benefits */}
-        <div className="bg-card rounded-lg p-8 shadow-soft">
+        <div className="bg-[color:var(--muted)] rounded-lg p-8 shadow-soft">
           <div className="text-center mb-8">
-            <h3 className="font-serif text-3xl font-bold mb-4 text-foreground">
+            <h3 className="font-serif text-3xl font-bold mb-4 text-[color:var(--foreground)]">
               Why Choose Our Certification?
             </h3>
-            <p className="text-muted-foreground">
+            <p className="text-[color:var(--muted-foreground)]">
               Join the ranks of successful makeup artists with our comprehensive
               training programs
             </p>
@@ -197,10 +193,10 @@ const Training = () => {
             {certificationBenefits.map((benefit, index) => (
               <div
                 key={benefit}
-                className="flex items-center text-foreground animate-fade-in"
+                className="flex items-center text-[color:var(--foreground)] animate-fade-in"
                 style={{ animationDelay: `${index * 0.1}s` }}
               >
-                <Star className="h-5 w-5 text-accent mr-3 flex-shrink-0" />
+                <Star className="h-5 w-5 text-[color:var(--accent)] mr-3 flex-shrink-0" />
                 <span>{benefit}</span>
               </div>
             ))}

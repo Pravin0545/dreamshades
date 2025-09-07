@@ -17,13 +17,15 @@ import {
 
 import makeupServiceImage from "@/assets/makeup-service.jpg";
 import bridalMakeupImage from "@/assets/bridal-makeup.jpg";
+import { link } from "fs";
 
 export const certifications = [
   "International Makeup Artist Certification",
-  "Bridal Makeup Specialist Certification",
-  "Airbrush Makeup Expert",
+  "Doctorate Certification for Art and Culture - 2025",
+  "SIBA Award Winner - 2023",
+  "The Guruji Award Winner - 2022",
   "Hair Styling Professional",
-  "Beauty Business Management",
+  "Diploma in Hair & Beauty",
 ];
 export const achievements = [
   {
@@ -44,7 +46,7 @@ export const achievements = [
   {
     icon: Star,
     title: "Award Winner",
-    description: "Best Makeup Artist Award 2023",
+    description: "SIBA Award Winner - 2023",
   },
 ];
 
@@ -54,7 +56,10 @@ export const services = [
   "HD/3D Makeup",
   "Glossy Makeup",
   "Hair Styling",
-  "Skin Treatment",
+  "Groom Makeup",
+  "Pre-wedding Trials",
+  "Group Bookings",
+  "Airbrush Makeup",
   "Full Makeover Package",
 ];
 
@@ -63,11 +68,13 @@ export const servicesDetails = [
     icon: Palette,
     title: "Bridal Makeup",
     description:
-      "Complete bridal makeover with HD makeup, hairstyling, and pre-wedding trials",
+      "Complete bridal makeover with HD makeup and celebrity look, Long lasting and pre-wedding trials",
     price: "Starting from ₹15,000",
     image: bridalMakeupImage,
     features: [
       "HD/3D Makeup",
+      "Airbrush Makeup",
+      "Groom Makeup",
       "Hair Styling",
       "Pre-wedding Trial",
       "Touch-up Kit",
@@ -76,19 +83,31 @@ export const servicesDetails = [
   {
     icon: Camera,
     title: "Party & Event Makeup",
-    description: "Glamorous makeup for parties, events, and special occasions",
-    price: "Starting from ₹5,000",
+    description:
+      "Glamorous makeup for parties, events, and special occasions with Glossy finish",
+    price: "Starting from ₹6,000",
     image: makeupServiceImage,
-    features: ["Party Makeup", "Event Styling", "Photo Ready", "Long Lasting"],
+    features: [
+      "Party Makeup",
+      "Gloss Finish",
+      "Hair Styling",
+      "Event Styling",
+      "Photo Ready",
+      "Long Lasting",
+    ],
   },
   {
     icon: Scissors,
     title: "Hair Styling",
-    description:
-      "Professional hair styling, cuts, and treatments for all occasions",
+    description: "Professional hair styling from basic to advance",
     price: "Starting from ₹2,500",
     image: makeupServiceImage,
-    features: ["Styling", "Cutting", "Treatment", "Color"],
+    features: [
+      "Advance Bridal Hair Styles",
+      "Open Hair Styles",
+      "Messy Hair Styles",
+      "Bollywood Waves",
+    ],
   },
   {
     icon: Users,
@@ -127,24 +146,28 @@ export const contactInfo = [
     content:
       "Bhagya Laxmi Residence, 1st floor\nManikonda Rd, near Bhimas Hotel\nOU Colony, Shaikpet\nHyderabad, Telangana 500008",
     action: "Get Directions",
+    link: "https://www.google.com/maps/place/DreamShades+Makeover+Studio+%26+Unisex+Professional+Academy/@17.4065019,78.3921263,17z/data=!3m1!4b1!4m6!3m5!1s0x3bcb97b0db1d24d1:0x660be37921df8eca!8m2!3d17.4065019!4d78.3921263!16s%2Fg%2F11sgmykb01?entry=ttu&g_ep=EgoyMDI1MDkwMy4wIKXMDSoASAFQAw%3D%3D",
   },
   {
     icon: Phone,
     title: "Call Us",
-    content: "+91 98765 43210\n+91 98765 43211",
+    content: "+91 9712366344\n+91 8712366336",
     action: "Call Now",
+    link: "",
   },
   {
     icon: Mail,
     title: "Email Us",
-    content: "info@dreamshades.com\nbookings@dreamshades.com",
+    content: "dreamshades.hyd@gmail.com",
     action: "Send Email",
+    link: "",
   },
   {
     icon: Clock,
     title: "Studio Hours",
-    content: "Mon-Sat: 9:00 AM - 8:00 PM\nSun: 10:00 AM - 6:00 PM",
+    content: "Mon-Sat: 10:00 AM - 6:00 PM\nSun: Closed",
     action: "Book Appointment",
+    link: "",
   },
 ];
 
@@ -170,12 +193,9 @@ export const socialLinks = [
 ];
 
 export const courses = [
-  "Basic Makeup Course (1 Month)",
-  "Professional Makeup Diploma (3 Months)",
-  "Advanced Bridal Makeup (6 Weeks)",
-  "HD & 3D Makeup Masterclass (2 Weeks)",
-  "Hair Styling Course (1 Month)",
-  "Complete Beauty Package (6 Months)",
+  "Basic Makeup Course (2 Weeks)",
+  "Professional Makeup Diploma and PG (12 Weeks)",
+  "Advanced Bridal Makeup (5 Weeks)",
 ];
 
 export const coursesDetails = [
@@ -183,7 +203,7 @@ export const coursesDetails = [
     title: "Basic Makeup Artistry",
     description:
       "Foundation course covering basic makeup techniques and color theory",
-    duration: "4 Weeks",
+    duration: "2 Weeks",
     students: "15",
     price: "₹25,000",
     level: "Beginner",
@@ -196,12 +216,12 @@ export const coursesDetails = [
     ],
   },
   {
-    title: "Professional Makeup Diploma",
+    title: "Professional Makeup Diploma and PG",
     description:
       "Comprehensive program covering all aspects of professional makeup artistry",
     duration: "12 Weeks",
     students: "12",
-    price: "₹75,000",
+    price: "Starting From ₹75,000",
     level: "Advanced",
     featured: true,
     modules: [
@@ -211,13 +231,14 @@ export const coursesDetails = [
       "Portfolio development",
       "Business and marketing",
       "Internship opportunities",
+      "Professional Grooming Kit for Hair & Makeup",
     ],
   },
   {
     title: "Bridal Makeup Specialist",
     description:
       "Specialized course focusing on bridal makeup trends and techniques",
-    duration: "6 Weeks",
+    duration: "5 Weeks",
     students: "10",
     price: "₹45,000",
     level: "Intermediate",

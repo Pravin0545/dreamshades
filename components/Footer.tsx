@@ -1,14 +1,5 @@
-import { courses, navItems, services } from "@/constant/constant";
-import {
-  Sparkles,
-  MapPin,
-  Phone,
-  Mail,
-  Instagram,
-  Facebook,
-  Youtube,
-  Heart,
-} from "lucide-react";
+import { courses, navItems, services, socialLinks } from "@/constant/constant";
+import { Sparkles, MapPin, Phone, Mail, Heart } from "lucide-react";
 import Link from "next/link";
 
 const Footer = () => {
@@ -31,27 +22,18 @@ const Footer = () => {
               services.
             </p>
             <div className="flex space-x-4">
-              <a
-                href="https://instagram.com"
-                aria-label="Instagram"
-                className="bg-pink-500 p-2 rounded-full hover:scale-110 transition-transform"
-              >
-                <Instagram className="h-4 w-4" />
-              </a>
-              <a
-                href="https://facebook.com"
-                aria-label="Facebook"
-                className="bg-blue-600 p-2 rounded-full hover:scale-110 transition-transform"
-              >
-                <Facebook className="h-4 w-4" />
-              </a>
-              <a
-                href="https://youtube.com"
-                aria-label="YouTube"
-                className="bg-red-600 p-2 rounded-full hover:scale-110 transition-transform"
-              >
-                <Youtube className="h-4 w-4" />
-              </a>
+              {socialLinks.map((social) => (
+                <a
+                  key={social.name}
+                  href={social.href}
+                  className={`${social.color} text-white p-3 rounded-full hover:scale-110 transition-transform`}
+                  aria-label={social.name}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <social.icon className="h-5 w-5 text-[color:var(--accent-foreground)]" />
+                </a>
+              ))}
             </div>
           </div>
 

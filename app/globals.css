@@ -2,6 +2,9 @@
 @import "tw-animate-css";
 @tailwind utilities;
 
+/* ===========================
+   Utilities
+   =========================== */
 @layer utilities {
   .navbar-scroll {
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
@@ -21,7 +24,7 @@
     bottom: -4px;
     width: 0%;
     height: 2px;
-    background-color: hsl(var(--primary));
+    background-color: var(--primary);
     transition: width 0.3s ease;
   }
   .nav-link:hover::after,
@@ -31,17 +34,27 @@
 
   /* Luxury gradient button */
   .btn-luxury {
-    background: linear-gradient(
-      135deg,
-      hsl(var(--primary)),
-      hsl(var(--secondary))
-    );
+    background: linear-gradient(135deg, var(--primary), var(--accent));
     color: var(--primary-foreground);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
   }
   .btn-luxury:hover {
     transform: translateY(-2px);
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  }
+
+  /* Secondary button */
+  .btn-secondary {
+    background-color: var(--accent);
+    color: #fff;
+    border: 1px solid hsl(var(--border));
+    transition: transform 0.3s ease, box-shadow 0.3s ease,
+      background-color 0.3s ease;
+  }
+  .btn-secondary:hover {
+    background-color: color-mix(in srgb, var(--accent) 90%, black);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.12);
   }
 
   /* Mobile menu slide */
@@ -71,48 +84,27 @@
       transform: translateY(-10px);
     }
   }
-  .bg-gradient-primary {
-    background: linear-gradient(
-      to right,
-      hsl(var(--primary)),
-      hsl(var(--secondary))
-    );
-  }
 
-  .dark .bg-gradient-primary {
-    background: linear-gradient(
-      to right,
-      hsl(var(--primary) / 0.85),
-      hsl(var(--secondary) / 0.85)
-    );
+  .bg-gradient-primary {
+    background-image: linear-gradient(135deg, var(--primary), var(--accent));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
   }
 
   .bg-gradient-hero {
-    background: linear-gradient(
-      135deg,
-      hsl(var(--primary)),
-      hsl(var(--accent))
-    );
-  }
-
-  .dark .bg-gradient-hero {
-    background: linear-gradient(
-      135deg,
-      hsl(var(--primary) / 0.85),
-      hsl(var(--accent) / 0.85)
-    );
+    background: linear-gradient(135deg, var(--primary), var(--accent));
   }
 
   .navbar-backdrop {
-    /* background-color: hsl(var(--background) / 0.92); */
     backdrop-filter: blur(14px);
-    /* border-bottom: 1px solid hsl(var(--border)); */
   }
 
   .dark .navbar-backdrop {
     background-color: hsl(var(--background) / 0.88);
     border-bottom-color: hsl(var(--border));
   }
+
   @keyframes fade-in-up {
     0% {
       opacity: 0;
@@ -138,7 +130,6 @@
   .animate-fade-in-up {
     animation: fade-in-up 0.8s ease-out forwards;
   }
-
   .animate-scale-in {
     animation: scale-in 0.6s ease-out forwards;
   }
@@ -152,7 +143,6 @@
   .hover-lift {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
   }
-
   .hover-lift:hover {
     transform: translateY(-4px);
     box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1), 0 6px 16px rgba(0, 0, 0, 0.08);
@@ -160,36 +150,51 @@
 
   /* Gradient icon background */
   .icon-gradient {
-    background: linear-gradient(
-      135deg,
-      hsl(var(--primary)),
-      hsl(var(--secondary))
-    );
+    background: linear-gradient(135deg, var(--primary), var(--accent));
   }
 }
 
+/* ===========================
+   Base Variables
+   =========================== */
 @layer base {
   :root {
-    --bg-gradient-hero: linear-gradient(
-      135deg,
-      hsl(var(--primary)),
-      hsl(var(--accent))
-    );
-    --background: 60 20% 96%;
-    --foreground: 210 10% 15%;
+    /* --- Updated Professional Palette --- */
+    --primary: #5c4033; /* Brown */
+    --primary-foreground: #f5f0e6;
 
-    --primary: 120 15% 45%;
-    --primary-foreground: 0 0% 100%;
+    --background: #f5f0e6; /* Beige/Cream */
+    --foreground: #5c4033;
 
-    --secondary: 30 25% 70%;
-    --secondary-foreground: 210 10% 15%;
+    --accent: #c19a6b; /* Muted Gold */
+    --accent-foreground: #fff;
 
-    --accent: 160 20% 35%;
-    --accent-foreground: 60 20% 96%;
+    --secondary: #c19a6b; /* Using accent as secondary for buttons */
+    --secondary-foreground: #fff;
 
-    --muted: 60 10% 85%;
-    --muted-foreground: 210 10% 35%;
+    --destructive: #b00020;
+    --destructive-foreground: #fff;
 
-    --border: 60 10% 80%;
+    --muted: #e9e2d8;
+    --muted-foreground: #5c4033;
+
+    --border: #d6ccc2;
+    --input: #d6ccc2;
+    --ring: #5c4033;
+
+    /* Gradients */
+
+    --gradient-primary: linear-gradient(135deg, #5c4033, #c19a6b);
+    --gradient-secondary: linear-gradient(180deg, #f5f0e6, #c19a6b);
+    --gradient-hero: linear-gradient(135deg, #5c4033, #c19a6b);
+
+    /* Shadows */
+    --shadow-luxury: 0 20px 40px -10px rgba(92, 64, 51, 0.2);
+    --shadow-soft: 0 10px 30px -5px rgba(92, 64, 51, 0.12);
+    --shadow-glow: 0 0 30px rgba(193, 154, 107, 0.35);
+
+    /* Misc */
+    --transition-smooth: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+    --radius: 0.5rem;
   }
 }

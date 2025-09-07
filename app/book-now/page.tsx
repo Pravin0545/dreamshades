@@ -31,6 +31,8 @@ import {
 import { useToast } from "@/hooks/use-toast";
 import { addAppointment } from "@/services/addAppointment";
 import { services, timeSlots } from "@/constant/constant";
+import { Section } from "@/components/ui/section";
+import { Container } from "@/components/ui/container";
 
 const BookNow = () => {
   const { toast } = useToast();
@@ -49,15 +51,16 @@ const BookNow = () => {
     setFormData((prev) => ({ ...prev, [field]: value }));
   };
 
+  const isFormValid =
+    formData.name.trim() !== "" &&
+    formData.email.trim() !== "" &&
+    formData.phone.trim() !== "" &&
+    formData.service.trim() !== "";
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (
-      !formData.name ||
-      !formData.email ||
-      !formData.phone ||
-      !formData.service
-    ) {
+    if (!isFormValid) {
       toast({
         title: "Missing Information",
         description: "Please fill in all required fields.",
@@ -100,25 +103,25 @@ const BookNow = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-primary py-16 px-4">
-      <div className="container mx-auto max-w-2xl">
+    <Section variant="soft" className="min-h-screen py-16">
+      <Container size="md">
         {/* Header */}
         <div className="text-center mb-8">
-          <h1 className="text-4xl font-serif font-bold text-foreground mb-4">
+          <h1 className="text-4xl font-serif font-bold text-[color:var(--foreground)] mb-4">
             Book Your Appointment
           </h1>
-          <p className="text-muted-foreground text-lg">
+          <p className="text-[color:var(--muted-foreground)] text-lg">
             Schedule your perfect makeover experience with our expert team
           </p>
         </div>
 
         {/* Booking Form */}
-        <Card className="bg-green-200/90">
+        <Card className="bg-[color:var(--muted)]">
           <CardHeader className="text-center">
-            <CardTitle className="text-2xl font-serif text-primary">
+            <CardTitle className="text-2xl font-serif text-[color:var(--foreground)]">
               Reserve Your Slot
             </CardTitle>
-            <CardDescription>
+            <CardDescription className="text-[color:var(--muted-foreground)]">
               Fill in your details and we'll confirm your appointment within 24
               hours
             </CardDescription>
@@ -129,8 +132,11 @@ const BookNow = () => {
               {/* Personal Info */}
               <div className="grid md:grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <Label htmlFor="name" className="flex items-center gap-2">
-                    <User className="w-4 h-4" />
+                  <Label
+                    htmlFor="name"
+                    className="flex items-center gap-2 text-[color:var(--foreground)]"
+                  >
+                    <User className="w-4 h-4 text-[color:var(--accent)]" />
                     Full Name *
                   </Label>
                   <Input
@@ -143,8 +149,11 @@ const BookNow = () => {
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="phone" className="flex items-center gap-2">
-                    <Phone className="w-4 h-4" />
+                  <Label
+                    htmlFor="phone"
+                    className="flex items-center gap-2 text-[color:var(--foreground)]"
+                  >
+                    <Phone className="w-4 h-4 text-[color:var(--accent)]" />
                     Phone Number *
                   </Label>
                   <Input
@@ -159,8 +168,11 @@ const BookNow = () => {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="email" className="flex items-center gap-2">
-                  <Mail className="w-4 h-4" />
+                <Label
+                  htmlFor="email"
+                  className="flex items-center gap-2 text-[color:var(--foreground)]"
+                >
+                  <Mail className="w-4 h-4 text-[color:var(--accent)]" />
                   Email Address *
                 </Label>
                 <Input
@@ -175,12 +187,14 @@ const BookNow = () => {
 
               {/* Service */}
               <div className="space-y-2">
-                <Label>Service Type *</Label>
+                <Label className="text-[color:var(--foreground)]">
+                  Service Type *
+                </Label>
                 <Select
                   value={formData.service}
                   onValueChange={(value) => handleInputChange("service", value)}
                 >
-                  <SelectTrigger>
+                  <SelectTrigger className="text-[color:var(--foreground)]">
                     <SelectValue placeholder="Select a service" />
                   </SelectTrigger>
                   <SelectContent>
@@ -195,47 +209,69 @@ const BookNow = () => {
 
               {/* Date & Time */}
               <div className="grid md:grid-cols-2 gap-4">
+                {" "}
                 <div className="space-y-2">
-                  <Label htmlFor="date" className="flex items-center gap-2">
-                    <Calendar className="w-4 h-4" />
-                    Preferred Date
-                  </Label>
+                  {" "}
+                  <Label
+                    htmlFor="date"
+                    className="flex items-center gap-2 text-[color:var(--foreground)]"
+                  >
+                    {" "}
+                    <Calendar className="w-4 h-4 text-[color:var(--accent)]" />{" "}
+                    Preferred Date{" "}
+                  </Label>{" "}
                   <Input
                     id="date"
                     type="date"
                     value={formData.date}
                     onChange={(e) => handleInputChange("date", e.target.value)}
                     min={new Date().toISOString().split("T")[0]}
-                  />
-                </div>
-
+                    className="w-auto bg-[color:var(--muted)] border border-[color:var(--border)] text-[color:var(--foreground)] placeholder:text-[color:var(--muted-foreground)] rounded-md px-3 py-2"
+                  />{" "}
+                </div>{" "}
                 <div className="space-y-2">
-                  <Label className="flex items-center gap-2">
-                    <Clock className="w-4 h-4" />
-                    Preferred Time
-                  </Label>
+                  {" "}
+                  <Label className="flex items-center gap-2 text-[color:var(--foreground)]">
+                    {" "}
+                    <Clock className="w-4 h-4 text-[color:var(--accent)]" />{" "}
+                    Preferred Time{" "}
+                  </Label>{" "}
                   <Select
                     value={formData.time}
                     onValueChange={(value) => handleInputChange("time", value)}
                   >
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select time" />
-                    </SelectTrigger>
-                    <SelectContent>
+                    {" "}
+                    <SelectTrigger className="w-full bg-[color:var(--muted)] border border-[color:var(--border)] rounded-md px-3 py-2 text-[color:var(--foreground)]">
+                      {" "}
+                      <SelectValue
+                        className="text-[color:var(--muted-foreground)]"
+                        placeholder="Select time"
+                      />{" "}
+                    </SelectTrigger>{" "}
+                    <SelectContent className="bg-[color:var(--muted)] border border-[color:var(--border)] rounded-md">
+                      {" "}
                       {timeSlots.map((time) => (
-                        <SelectItem key={time} value={time}>
-                          {time}
+                        <SelectItem
+                          key={time}
+                          value={time}
+                          className="text-[color:var(--foreground)] hover:bg-[color:var(--primary)]/10"
+                        >
+                          {" "}
+                          {time}{" "}
                         </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </div>
+                      ))}{" "}
+                    </SelectContent>{" "}
+                  </Select>{" "}
+                </div>{" "}
               </div>
 
               {/* Notes */}
               <div className="space-y-2">
-                <Label htmlFor="message" className="flex items-center gap-2">
-                  <MessageSquare className="w-4 h-4" />
+                <Label
+                  htmlFor="message"
+                  className="flex items-center gap-2 text-[color:var(--foreground)]"
+                >
+                  <MessageSquare className="w-4 h-4 text-[color:var(--accent)]" />
                   Additional Notes (Optional)
                 </Label>
                 <Textarea
@@ -250,10 +286,11 @@ const BookNow = () => {
               {/* Submit */}
               <Button
                 type="submit"
-                variant="luxury"
+                variant="secondary"
                 size="lg"
                 className="w-full"
-                disabled={isSubmitting}
+                disabled={isSubmitting || !isFormValid}
+                aria-disabled={isSubmitting || !isFormValid}
               >
                 {isSubmitting ? (
                   <>
@@ -270,18 +307,18 @@ const BookNow = () => {
 
         {/* Contact Info */}
         <div className="mt-8 text-center">
-          <p className="text-muted-foreground">
+          <p className="text-[color:var(--muted-foreground)]">
             Need help? Call us at{" "}
             <a
-              href="tel:+919876543210"
-              className="text-primary hover:underline font-semibold"
+              href="tel:+919712366344"
+              className="text-[color:var(--primary)] hover:underline font-semibold"
             >
-              +91 98765 43210
+              +91 9712366344
             </a>
           </p>
         </div>
-      </div>
-    </div>
+      </Container>
+    </Section>
   );
 };
 

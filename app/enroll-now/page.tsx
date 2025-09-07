@@ -31,6 +31,8 @@ import {
 import { useToast } from "@/hooks/use-toast";
 import { enrollCourse } from "@/services/enrollcourse";
 import { courses, experienceLevels } from "@/constant/constant";
+import { Section } from "@/components/ui/section";
+import { Container } from "@/components/ui/container";
 
 const EnrollNow = () => {
   const { toast } = useToast();
@@ -49,15 +51,16 @@ const EnrollNow = () => {
     setFormData((prev) => ({ ...prev, [field]: value }));
   };
 
+  const isFormValid =
+    formData.name.trim() !== "" &&
+    formData.email.trim() !== "" &&
+    formData.phone.trim() !== "" &&
+    formData.course.trim() !== "";
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (
-      !formData.name ||
-      !formData.email ||
-      !formData.phone ||
-      !formData.course
-    ) {
+    if (!isFormValid) {
       toast({
         title: "Missing Information",
         description: "Please fill in all required fields.",
@@ -100,27 +103,27 @@ const EnrollNow = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-primary py-16 px-4">
-      <div className="container mx-auto max-w-2xl">
+    <Section variant="soft" className="min-h-screen py-16">
+      <Container size="md">
         {/* Header */}
         <div className="text-center mb-8">
-          <h1 className="text-4xl font-serif font-bold text-foreground mb-4">
+          <h1 className="text-4xl font-serif font-bold text-[color:var(--foreground)] mb-4">
             Enroll in Our Training Program
           </h1>
-          <p className="text-muted-foreground text-lg">
+          <p className="text-[color:var(--muted-foreground)] text-lg">
             Start your professional makeup artistry journey with certified
             training
           </p>
         </div>
 
         {/* Enrollment Form */}
-        <Card className="bg-green-200/90">
+        <Card className="bg-[color:var(--muted)]">
           <CardHeader className="text-center">
-            <CardTitle className="text-2xl font-serif text-primary flex items-center justify-center gap-2">
-              <GraduationCap className="w-6 h-6" />
+            <CardTitle className="text-2xl font-serif text-[color:var(--foreground)] flex items-center justify-center gap-2">
+              <GraduationCap className="w-6 h-6 text-[color:var(--accent)]" />
               Course Enrollment
             </CardTitle>
-            <CardDescription>
+            <CardDescription className="text-[color:var(--muted-foreground)]">
               Join thousands of successful makeup artists who started their
               journey with us
             </CardDescription>
@@ -131,8 +134,11 @@ const EnrollNow = () => {
               {/* Personal Info */}
               <div className="grid md:grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <Label htmlFor="name" className="flex items-center gap-2">
-                    <User className="w-4 h-4" />
+                  <Label
+                    htmlFor="name"
+                    className="flex items-center gap-2 text-[color:var(--foreground)]"
+                  >
+                    <User className="w-4 h-4 text-[color:var(--accent)]" />
                     Full Name *
                   </Label>
                   <Input
@@ -145,8 +151,11 @@ const EnrollNow = () => {
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="phone" className="flex items-center gap-2">
-                    <Phone className="w-4 h-4" />
+                  <Label
+                    htmlFor="phone"
+                    className="flex items-center gap-2 text-[color:var(--foreground)]"
+                  >
+                    <Phone className="w-4 h-4 text-[color:var(--accent)]" />
                     Phone Number *
                   </Label>
                   <Input
@@ -161,8 +170,11 @@ const EnrollNow = () => {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="email" className="flex items-center gap-2">
-                  <Mail className="w-4 h-4" />
+                <Label
+                  htmlFor="email"
+                  className="flex items-center gap-2 text-[color:var(--foreground)]"
+                >
+                  <Mail className="w-4 h-4 text-[color:var(--accent)]" />
                   Email Address *
                 </Label>
                 <Input
@@ -177,15 +189,15 @@ const EnrollNow = () => {
 
               {/* Course Selection */}
               <div className="space-y-2">
-                <Label className="flex items-center gap-2">
-                  <Award className="w-4 h-4" />
+                <Label className="flex items-center gap-2 text-[color:var(--foreground)]">
+                  <Award className="w-4 h-4 text-[color:var(--accent)]" />
                   Course Selection *
                 </Label>
                 <Select
                   value={formData.course}
                   onValueChange={(value) => handleInputChange("course", value)}
                 >
-                  <SelectTrigger>
+                  <SelectTrigger className="text-[color:var(--foreground)]">
                     <SelectValue placeholder="Choose your course" />
                   </SelectTrigger>
                   <SelectContent>
@@ -200,14 +212,16 @@ const EnrollNow = () => {
 
               {/* Experience Level */}
               <div className="space-y-2">
-                <Label>Experience Level</Label>
+                <Label className="text-[color:var(--foreground)]">
+                  Experience Level
+                </Label>
                 <Select
                   value={formData.experience}
                   onValueChange={(value) =>
                     handleInputChange("experience", value)
                   }
                 >
-                  <SelectTrigger>
+                  <SelectTrigger className="text-[color:var(--foreground)]">
                     <SelectValue placeholder="Select your current level" />
                   </SelectTrigger>
                   <SelectContent>
@@ -222,8 +236,11 @@ const EnrollNow = () => {
 
               {/* Additional Message */}
               <div className="space-y-2">
-                <Label htmlFor="message" className="flex items-center gap-2">
-                  <MessageSquare className="w-4 h-4" />
+                <Label
+                  htmlFor="message"
+                  className="flex items-center gap-2 text-[color:var(--foreground)]"
+                >
+                  <MessageSquare className="w-4 h-4 text-[color:var(--accent)]" />
                   Why do you want to join this course? (Optional)
                 </Label>
                 <Textarea
@@ -238,10 +255,11 @@ const EnrollNow = () => {
               {/* Submit */}
               <Button
                 type="submit"
-                variant="luxury"
+                variant="secondary"
                 size="lg"
                 className="w-full"
-                disabled={isSubmitting}
+                disabled={isSubmitting || !isFormValid}
+                aria-disabled={isSubmitting || !isFormValid}
               >
                 {isSubmitting ? (
                   <>
@@ -255,11 +273,11 @@ const EnrollNow = () => {
             </form>
 
             {/* Benefits */}
-            <div className="mt-8 p-6 bg-secondary/20 rounded-lg">
-              <h3 className="font-semibold text-primary mb-3">
+            <div className="mt-8 p-6 bg-[color:var(--background)]/80 rounded-lg border border-[color:var(--border)]">
+              <h3 className="font-semibold text-[color:var(--foreground)] mb-3">
                 What You'll Get:
               </h3>
-              <ul className="space-y-2 text-sm text-muted-foreground">
+              <ul className="space-y-2 text-sm text-[color:var(--muted-foreground)]">
                 <li>✓ Industry-recognized certification</li>
                 <li>✓ Hands-on practical training</li>
                 <li>✓ Professional makeup kit included</li>
@@ -273,18 +291,18 @@ const EnrollNow = () => {
 
         {/* Contact Info */}
         <div className="mt-8 text-center">
-          <p className="text-muted-foreground">
+          <p className="text-[color:var(--muted-foreground)]">
             Have questions? Call us at{" "}
             <a
-              href="tel:+919876543210"
-              className="text-primary hover:underline font-semibold"
+              href="tel:+919712366344"
+              className="text-[color:var(--primary)] hover:underline font-semibold"
             >
-              +91 98765 43210
+              +91 9712366344
             </a>
           </p>
         </div>
-      </div>
-    </div>
+      </Container>
+    </Section>
   );
 };
 
