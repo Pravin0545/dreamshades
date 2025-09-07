@@ -17,6 +17,7 @@ export default function ActiveLink({
   href,
   className,
   activeClassName = "text-primary font-semibold",
+  style,
   ...props
 }: ActiveLinkProps) {
   const pathname = usePathname();
@@ -27,6 +28,7 @@ export default function ActiveLink({
       href={href}
       className={cn(className, isActive && activeClassName)}
       prefetch={true}
+      style={style}
       {...props}
     >
       {children}
