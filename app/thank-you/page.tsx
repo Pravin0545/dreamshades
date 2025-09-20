@@ -15,9 +15,10 @@ export const metadata: Metadata = {
 export default function ThankYou({
   searchParams,
 }: {
-  searchParams?: { type?: string };
+  searchParams?: Record<string, string | string[] | undefined>;
 }) {
-  const type = (searchParams?.type || "").toLowerCase();
+  const type = (searchParams?.type as string | undefined)?.toLowerCase() ?? "";
+
   const heading =
     type === "enroll"
       ? "Thank you for enrolling"
