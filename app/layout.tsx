@@ -4,6 +4,7 @@ import Script from "next/script"; // ✅ import Script
 import "./globals.css";
 import NavigationClient from "@/lib/NavigationClient";
 import FooterClient from "@/lib/FooterClient";
+import { ToastContainer } from "react-toastify";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -62,6 +63,18 @@ export default function RootLayout({
 
         <NavigationClient />
         {children}
+        <ToastContainer
+          position="top-right"
+          autoClose={3000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="dark" // or "light"
+        />
         <FooterClient />
       </body>
     </html>

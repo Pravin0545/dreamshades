@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable react/no-unescaped-entities */
 "use client";
 import React, { useState } from "react";
@@ -28,15 +29,14 @@ import {
   MessageSquare,
   Loader2,
 } from "lucide-react";
-import { useToast } from "@/hooks/use-toast";
 import { addAppointment } from "@/services/addAppointment";
 import { services, timeSlots } from "@/constant/constant";
 import { Section } from "@/components/ui/section";
 import { Container } from "@/components/ui/container";
 import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
 
 const BookNow = () => {
-  const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
@@ -64,10 +64,15 @@ const BookNow = () => {
     e.preventDefault();
 
     if (!isFormValid) {
-      toast({
-        title: "Missing Information",
-        description: "Please fill in all required fields.",
-        variant: "destructive",
+      toast.error("Missing Information", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
       });
       return;
     }
@@ -86,20 +91,31 @@ const BookNow = () => {
         message: "",
       });
 
-      toast({
-        title: "✅ Booking Submitted!",
-        description: "We'll contact you shortly to confirm your appointment.",
-        variant: "success",
-      });
+      toast.success(
+        "✅ Booking Submitted!",
+
+        {
+          position: "top-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: false,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        }
+      );
       router.push("/thank-you?type=book");
     } catch (error) {
-      toast({
-        title: "❌ Booking Failed",
-        description:
-          error && typeof error === "object" && "message" in error
-            ? (error as { message: string }).message
-            : "Something went wrong. Please try again.",
-        variant: "destructive",
+      toast.error("❌ Booking Failed", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
       });
     } finally {
       setIsSubmitting(false);

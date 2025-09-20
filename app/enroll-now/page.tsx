@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable react/no-unescaped-entities */
 "use client";
 import { useState } from "react";
@@ -34,9 +35,9 @@ import { courses, experienceLevels } from "@/constant/constant";
 import { Section } from "@/components/ui/section";
 import { Container } from "@/components/ui/container";
 import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
 
 const EnrollNow = () => {
-  const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const [formData, setFormData] = useState({
@@ -64,10 +65,15 @@ const EnrollNow = () => {
     e.preventDefault();
 
     if (!isFormValid) {
-      toast({
-        title: "Missing Information",
-        description: "Please fill in all required fields.",
-        variant: "destructive",
+      toast.error("Missing Information", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
       });
       return;
     }
@@ -84,14 +90,30 @@ const EnrollNow = () => {
         message: "",
       });
       router.push("/thank-you?type=enroll");
+      toast.success(
+        "✅ Enrollment Submitted!",
+
+        {
+          position: "top-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: false,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        }
+      );
     } catch (error) {
-      toast({
-        title: "❌ Enrollment Failed",
-        description:
-          error && typeof error === "object" && "message" in error
-            ? (error as { message: string }).message
-            : "Something went wrong. Please try again.",
-        variant: "destructive",
+      toast.error("❌ Enrollment Failed", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
       });
     } finally {
       setIsSubmitting(false);
