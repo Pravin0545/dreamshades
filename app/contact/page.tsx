@@ -18,18 +18,40 @@ const Contact = () => {
     service: "",
     message: "",
   });
+  const url =
+    "https://www.google.com/maps/place/DreamShades+Makeover+Studio+%26+Unisex+Professional+Academy/@17.4065019,78.3921263,17z/data=!3m1!4b1!4m6!3m5!1s0x3bcb97b0db1d24d1:0x660be37921df8eca!8m2!3d17.4065019!4d78.3921263!16s%2Fg%2F11sgmykb01?entry=ttu&g_ep=EgoyMDI1MDkwMy4wIKXMDSoASAFQAw%3D%3D";
 
   const handleChange = (field: string, value: string) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    toast({
-      title: "Message Sent!",
-      description: "We'll get back to you within 24 hours.",
-    });
-    setFormData({ name: "", email: "", phone: "", service: "", message: "" });
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: formData.name,
+          phone: formData.phone,
+          email: formData.email,
+          service: formData.service,
+          message: formData.message,
+        }),
+      });
+      const json = await res.json();
+      if (!res.ok) throw new Error(json?.error ?? "Request failed");
+      // success: clear form or show toast
+      setFormData({ name: "", phone: "", email: "", service: "", message: "" });
+      // show success UI
+    } catch (err: unknown) {
+      // show error UI
+      if (err instanceof Error) {
+        console.error(err.message);
+      } else {
+        console.error(err);
+      }
+    }
   };
 
   return (
@@ -158,15 +180,23 @@ const Contact = () => {
                         <p className="text-[color:var(--muted-foreground)] whitespace-pre-line mb-3">
                           {info.content}
                         </p>
-                        <Link href={info.link}>
-                          <Button
-                            size="sm"
-                            variant="default"
-                            className="transition-colors"
+                        {info.title === "Visit Our Studio" ? (
+                          <Link
+                            href={info.link}
+                            target="_blank"
+                            rel="noopener noreferrer"
                           >
-                            {info.action}
-                          </Button>
-                        </Link>
+                            <Button
+                              size="sm"
+                              variant="default"
+                              className="transition-colors"
+                            >
+                              {info.action}
+                            </Button>
+                          </Link>
+                        ) : (
+                          ""
+                        )}
                       </div>
                     </div>
                   </CardContent>
@@ -201,21 +231,23 @@ const Contact = () => {
               </Card>
 
               {/* Map */}
-              <Card className="bg-[color:var(--muted)]">
-                <CardContent className="p-0">
-                  <div className="bg-[color:var(--muted)] h-48 flex items-center justify-center text-[color:var(--muted-foreground)]">
-                    <div className="text-center">
-                      <MapPin className="h-8 w-8 mx-auto mb-2 text-[color:var(--accent)]" />
-                      <p className="text-[color:var(--foreground)]">
-                        Interactive Map
-                      </p>
-                      <p className="text-sm text-[color:var(--muted-foreground)]">
-                        Studio Location
-                      </p>
+              <Link href={url} target="_blank" rel="noopener noreferrer">
+                <Card className="bg-[color:var(--muted)]">
+                  <CardContent className="p-0">
+                    <div className="bg-[color:var(--muted)] h-48 flex items-center justify-center text-[color:var(--muted-foreground)]">
+                      <div className="text-center">
+                        <MapPin className="h-8 w-8 mx-auto mb-2 text-[color:var(--accent)]" />
+                        <p className="text-[color:var(--foreground)]">
+                          Interactive Map
+                        </p>
+                        <p className="text-sm text-[color:var(--muted-foreground)]">
+                          Studio Location
+                        </p>
+                      </div>
                     </div>
-                  </div>
-                </CardContent>
-              </Card>
+                  </CardContent>
+                </Card>
+              </Link>
             </div>
           </div>
         </div>

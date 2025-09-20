@@ -14,14 +14,13 @@ const Heading = React.forwardRef<HTMLHeadingElement, HeadingProps>(
   ) => {
     const Component = as;
 
-    const variants = {
-      primary: "text-foreground",
-      secondary: "text-muted-foreground",
-      gradient:
-        "bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent",
+    const variants: Record<string, string> = {
+      primary: "text-[color:var(--foreground)]",
+      secondary: "text-[color:var(--muted-foreground)]",
+      gradient: "bg-gradient-primary bg-clip-text text-transparent",
     };
 
-    const sizes = {
+    const sizes: Record<string, string> = {
       sm: "text-lg font-medium",
       md: "text-xl font-semibold",
       lg: "text-2xl font-bold lg:text-3xl",

@@ -27,7 +27,7 @@ export async function POST(req: Request) {
 
     const newAppointment = await BookAppointment.create(data);
 
-    const ownerEmail = "pravinch007@gmail.com";
+    const ownerEmail = "dreamshades.hyd@gmail.com";
 
     await transporter.sendMail({
       from: process.env.SMTP_USER,

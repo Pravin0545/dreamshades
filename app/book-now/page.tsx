@@ -33,6 +33,7 @@ import { addAppointment } from "@/services/addAppointment";
 import { services, timeSlots } from "@/constant/constant";
 import { Section } from "@/components/ui/section";
 import { Container } from "@/components/ui/container";
+import { useRouter } from "next/navigation";
 
 const BookNow = () => {
   const { toast } = useToast();
@@ -56,6 +57,8 @@ const BookNow = () => {
     formData.email.trim() !== "" &&
     formData.phone.trim() !== "" &&
     formData.service.trim() !== "";
+
+  const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -88,6 +91,7 @@ const BookNow = () => {
         description: "We'll contact you shortly to confirm your appointment.",
         variant: "success",
       });
+      router.push("/thank-you?type=book");
     } catch (error) {
       toast({
         title: "❌ Booking Failed",

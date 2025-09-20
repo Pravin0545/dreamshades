@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import { ThemeProvider } from "@/lib/theme-provider";
+import Script from "next/script"; // ✅ import Script
 import "./globals.css";
 import NavigationClient from "@/lib/NavigationClient";
 import FooterClient from "@/lib/FooterClient";
@@ -8,7 +8,7 @@ import FooterClient from "@/lib/FooterClient";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
-  display: "swap", // avoids FOIT
+  display: "swap",
 });
 
 const geistMono = Geist_Mono({
@@ -21,53 +21,9 @@ export const metadata: Metadata = {
   title: "DreamShades Makeover Studio",
   description:
     "DreamShades Makeover Studio & Unisex Professional Academy - Premium beauty services and certified makeup training courses in Hyderabad",
-  keywords: [
-    "DreamShades",
-    "Makeover Studio",
-    "Beauty Salon Hyderabad",
-    "Unisex Salon",
-    "Makeup Academy",
-    "Bridal Makeup Hyderabad",
-    "Hair Styling",
-    "Skincare",
-  ],
-  authors: [{ name: "DreamShades Makeover Studio" }],
-  creator: "DreamShades Makeover Studio",
-  publisher: "DreamShades Makeover Studio",
-  metadataBase: new URL("https://dreamshades.com"), // ✅ replace with live domain
-  alternates: {
-    canonical: "https://dreamshades.com",
-  },
-  openGraph: {
-    type: "website",
-    url: "https://dreamshades.com",
-    title: "DreamShades Makeover Studio",
-    description:
-      "Premium unisex salon & professional makeup academy in Hyderabad. Explore beauty, skincare, hair styling & certified training courses.",
-    siteName: "DreamShades Makeover Studio",
-    images: [
-      {
-        url: "https://dreamshades.com/og-image.jpg", // ✅ replace with real OG image
-        width: 1200,
-        height: 630,
-        alt: "DreamShades Makeover Studio",
-      },
-    ],
-  },
-  twitter: {
-    card: "summary_large_image",
-    site: "@dreamshades", // ✅ replace with real handle
-    title: "DreamShades Makeover Studio",
-    description:
-      "Premium beauty services & professional makeup academy in Hyderabad.",
-    images: ["https://dreamshades.com/og-image.jpg"],
-  },
-  icons: {
-    icon: "/favicon.ico",
-    shortcut: "/favicon.ico",
-    apple: "/apple-touch-icon.png",
-  },
-  themeColor: "#ffffff", // adjust if dark branding
+  metadataBase: new URL("https://www.dreamshadeshyd.com"),
+  alternates: { canonical: "https://www.dreamshadeshyd.com" },
+  themeColor: "#221a16",
 };
 
 export default function RootLayout({
@@ -76,18 +32,37 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="h-full">
+    <html
+      lang="en"
+      className={`${geistSans.variable} ${geistMono.variable} h-full`}
+    >
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        {/* Google Tag Manager */}
+        <Script id="gtm-script" strategy="afterInteractive">
+          {`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+          new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+          j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+          'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+          })(window,document,'script','dataLayer','GTM-MBCRH7Q9');`}
+        </Script>
+        {/* End Google Tag Manager */}
       </head>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased h-full`}
-      >
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <NavigationClient />
-          {children}
-          <FooterClient />
-        </ThemeProvider>
+      <body className="antialiased h-full">
+        {/* Google Tag Manager (noscript) */}
+        <noscript>
+          <iframe
+            src="https://www.googletagmanager.com/ns.html?id=GTM-MBCRH7Q9"
+            height="0"
+            width="0"
+            style={{ display: "none", visibility: "hidden" }}
+          />
+        </noscript>
+        {/* End Google Tag Manager (noscript) */}
+
+        <NavigationClient />
+        {children}
+        <FooterClient />
       </body>
     </html>
   );

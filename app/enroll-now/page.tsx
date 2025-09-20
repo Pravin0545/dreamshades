@@ -28,14 +28,13 @@ import {
   Award,
   Loader2,
 } from "lucide-react";
-import { useToast } from "@/hooks/use-toast";
 import { enrollCourse } from "@/services/enrollcourse";
 import { courses, experienceLevels } from "@/constant/constant";
 import { Section } from "@/components/ui/section";
 import { Container } from "@/components/ui/container";
+import { useRouter } from "next/navigation";
 
 const EnrollNow = () => {
-  const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const [formData, setFormData] = useState({
@@ -57,6 +56,8 @@ const EnrollNow = () => {
     formData.phone.trim() !== "" &&
     formData.course.trim() !== "";
 
+  const router = useRouter();
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -72,14 +73,6 @@ const EnrollNow = () => {
     try {
       setIsSubmitting(true);
       await enrollCourse(formData);
-
-      toast({
-        title: "✅ Enrollment Submitted!",
-        description:
-          "We'll contact you within 24 hours to discuss your course details.",
-        variant: "success",
-      });
-
       setFormData({
         name: "",
         email: "",
@@ -88,6 +81,7 @@ const EnrollNow = () => {
         experience: "",
         message: "",
       });
+      router.push("/thank-you?type=enroll");
     } catch (error) {
       toast({
         title: "❌ Enrollment Failed",

@@ -14,16 +14,16 @@ const buttonVariants = cva(
         destructive:
           "bg-[var(--destructive)] text-[var(--destructive-foreground)] hover:opacity-95",
         outline:
-          "border border-[color:var(--border)] bg-[var(--background)] hover:bg-[var(--accent)] hover:text-[var(--accent-foreground)]",
+          "border border-[color:var(--border)] bg-[color:var(--background)] hover:bg-[color:var(--accent)] hover:text-[color:var(--accent-foreground)]",
         secondary:
           "bg-[var(--secondary)] text-[var(--secondary-foreground)] hover:opacity-90",
         ghost:
-          "bg-transparent hover:bg-[var(--accent)] hover:text-[var(--accent-foreground)]",
-        link: "text-[var(--primary)] underline-offset-4 hover:underline",
+          "bg-transparent hover:bg-[color:var(--accent)] hover:text-[color:var(--accent-foreground)]",
+        link: "text-[var(--primary)] underline-offset-4 hover:underline hover:text-[var(--accent-foreground)]",
         luxury:
           "btn-luxury shadow-luxury hover:scale-105 transition-transform duration-300 font-semibold",
         transparent:
-          "bg-white/10 border border-white/20 text-white hover:bg-white/20",
+          "bg-[color:var(--foreground)/10] border border-[color:var(--foreground)/20] text-[color:var(--foreground)] hover:bg-[color:var(--foreground)/12]",
       },
       size: {
         default: "h-10 px-4 py-2",
