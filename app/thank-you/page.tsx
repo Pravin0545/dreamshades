@@ -12,37 +12,18 @@ export const metadata: Metadata = {
   themeColor: "#221a16",
 };
 
-export default function ThankYou({
-  searchParams,
-}: {
-  searchParams?: Record<string, string | string[] | undefined>;
-}) {
-  const type = (searchParams?.type as string | undefined)?.toLowerCase() ?? "";
-
-  const heading =
-    type === "enroll"
-      ? "Thank you for enrolling"
-      : type === "book"
-      ? "Thank you for your booking"
-      : "Thank you";
-
-  const sub =
-    type === "enroll"
-      ? "Your enrollment request has been received. Our course coordinator will contact you with details."
-      : type === "book"
-      ? "Your booking request has been received. Our executive will contact you to confirm the appointment."
-      : "We received your request. Our team will contact you with next steps.";
-
+export default function ThankYou() {
   return (
     <main className="min-h-screen flex items-center justify-center">
       <Container size="md" className="py-24 text-center">
         <div className="mx-auto max-w-2xl">
           <Heading as="h1" size="xl" className="mb-6">
-            {heading}
+            Thank You For Your Enquiry
           </Heading>
 
           <p className="mb-6 text-[color:var(--muted-foreground)] leading-relaxed">
-            {sub}
+            Your request has been received. Our course coordinator will contact
+            you with details.
           </p>
 
           <p className="mb-6 text-[color:var(--muted-foreground)]">
