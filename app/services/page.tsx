@@ -34,12 +34,13 @@ const Services = () => {
               style={{ animationDelay: `${index * 0.1}s` }}
             >
               {/* Service Image */}
-              <div className="relative h-48 overflow-hidden">
+              <div className="relative h-80 overflow-hidden">
                 <Image
                   src={service.image}
                   alt={service.title}
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                 />
+                5
                 <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
                 <div className="absolute top-4 left-4">
                   <div className="bg-[color:var(--primary)]/70 backdrop-blur-sm rounded-full p-3 text-[color:var(--primary-foreground)]">

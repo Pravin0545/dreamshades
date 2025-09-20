@@ -16,7 +16,10 @@ import {
 } from "lucide-react";
 
 import makeupServiceImage from "@/assets/makeup-service.jpg";
-import bridalMakeupImage from "@/assets/bridal-makeup.jpg";
+import Group_booking_1 from "@/assets/Group_booking_1.png";
+import Hair_Style_1 from "@/assets/Hair_Style_1.png";
+import Bridal_makeup_1 from "@/assets/Bridal_makeup_1.png";
+import Party_Makeup_1 from "@/assets/Party_Makeup_1.png";
 
 export const certifications = [
   "International Makeup Artist Certification",
@@ -69,7 +72,7 @@ export const servicesDetails = [
     description:
       "Complete bridal makeover with HD makeup and celebrity look, Long lasting and pre-wedding trials",
     price: "Starting from ₹15,000",
-    image: bridalMakeupImage,
+    image: Bridal_makeup_1,
     features: [
       "HD/3D Makeup",
       "Airbrush Makeup",
@@ -85,7 +88,7 @@ export const servicesDetails = [
     description:
       "Glamorous makeup for parties, events, and special occasions with Glossy finish",
     price: "Starting from ₹6,000",
-    image: makeupServiceImage,
+    image: Party_Makeup_1,
     features: [
       "Party Makeup",
       "Gloss Finish",
@@ -100,7 +103,7 @@ export const servicesDetails = [
     title: "Hair Styling",
     description: "Professional hair styling from basic to advance",
     price: "Starting from ₹2,500",
-    image: makeupServiceImage,
+    image: Hair_Style_1,
     features: [
       "Advance Bridal Hair Styles",
       "Open Hair Styles",
@@ -114,7 +117,7 @@ export const servicesDetails = [
     description:
       "Special packages for bridal parties, family functions, and group events",
     price: "Custom Pricing",
-    image: bridalMakeupImage,
+    image: Group_booking_1,
     features: [
       "Group Discount",
       "On-location",
