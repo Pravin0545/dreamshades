@@ -28,6 +28,7 @@ import {
   Award,
   Loader2,
 } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
 import { enrollCourse } from "@/services/enrollcourse";
 import { courses, experienceLevels } from "@/constant/constant";
 import { Section } from "@/components/ui/section";
@@ -35,6 +36,7 @@ import { Container } from "@/components/ui/container";
 import { useRouter } from "next/navigation";
 
 const EnrollNow = () => {
+  const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const [formData, setFormData] = useState({
