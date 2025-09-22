@@ -8,8 +8,17 @@ import { achievements, certifications } from "@/constant/constant";
 
 const About = () => {
   const images = [
-    { src: "/images/7073530.jpg", alt: "Image 5" },
-    { src: "/images/short-hair.jpg", alt: "Image 6" },
+    { src: "/images/aboutImg/image1.jpg", alt: "Image 1" },
+    { src: "/images/aboutImg/image2.jpg", alt: "Image 2" },
+    { src: "/images/aboutImg/image3.jpg", alt: "Image 3" },
+    { src: "/images/aboutImg/image4.jpg", alt: "Image 4" },
+    { src: "/images/aboutImg/image5.jpg", alt: "Image 5" },
+    { src: "/images/aboutImg/image6.jpg", alt: "Image 6" },
+    { src: "/images/aboutImg/image8.jpg", alt: "Image 8" },
+    { src: "/images/aboutImg/image10.jpg", alt: "Image 10" },
+    { src: "/images/aboutImg/image11.jpg", alt: "Image 11" },
+    { src: "/images/aboutImg/award1.jpg", alt: "Image 7" },
+    { src: "/images/aboutImg/award2.jpg", alt: "Image 9" },
   ];
 
   return (

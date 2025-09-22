@@ -23,41 +23,47 @@ interface CarouselProps {
 
 export const CardCarousel: React.FC<CarouselProps> = ({
   images,
-  autoplayDelay = 1500,
+  autoplayDelay = 2500,
   showPagination = true,
   showNavigation = true,
 }) => {
   const css = `
-  .swiper {
-    width: 100%;
-    padding-bottom: 50px;
-  }
-  
-  .swiper-slide {
-    background-position: center;
-    background-size: cover;
-    width: 300px;
-    /* height: 300px; */
-    /* margin: 20px; */
-  }
-  
-  .swiper-slide img {
-    display: block;
-    width: 100%;
-  }
-  
-  
-  .swiper-3d .swiper-slide-shadow-left {
-    background-image: none;
-  }
-  .swiper-3d .swiper-slide-shadow-right{
-    background: none;
-  }
+    .swiper { width: 100%; padding-bottom: 40px; }
+    .swiper-slide { display:flex; align-items:center; justify-content:center; }
+    /* enforce a consistent framed area for every image */
+    .slide-frame {
+      width: clamp(220px, 40vw, 560px);
+      aspect-ratio: 4 / 5; /* portrait-friendly. change to 16/9 or 3/2 if you prefer landscape */
+      border-radius: 0.75rem;
+      overflow: hidden;
+      display:block;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+      background: var(--muted);
+    }
+    /* make Next/Image cover the frame */
+    .slide-frame > img, .slide-frame .next-image {
+      width:100% !important;
+      height:100% !important;
+      object-fit: cover !important;
+      display:block;
+    }
+    /* remove unwanted Swiper shadows produced by 3D effect */
+    .swiper-3d .swiper-slide-shadow-left,
+    .swiper-3d .swiper-slide-shadow-right {
+      background: none;
+    }
+
+    /* simple styling for nav buttons so they are present in DOM and clickable */
+    .swiper-button-next, .swiper-button-prev {
+      color: var(--primary);
+    }
   `;
+
   return (
     <section>
       <style>{css}</style>
-      <div className="mx-auto w-full max-w-4xl rounded-[20px] border border-[color:var(--primary)] p-3 bg-[color:var(--background)] shadow-sm">
+
+      <div className="mx-auto w-full max-w-5xl rounded-[20px] border border-[color:var(--primary)] p-3 bg-[color:var(--background)] shadow-sm">
         <div className="relative mx-auto flex w-full flex-col rounded-[16px] bg-[color:var(--muted)] p-4">
           <div className="flex items-start justify-between gap-4 pb-4">
             <div className="flex gap-2">
@@ -73,9 +79,8 @@ export const CardCarousel: React.FC<CarouselProps> = ({
           </div>
 
           <div className="flex w-full items-center justify-center gap-4">
-            {/* <div className="w-full"> */}
             <Swiper
-              spaceBetween={50}
+              spaceBetween={24}
               autoplay={{
                 delay: autoplayDelay,
                 disableOnInteraction: false,
@@ -83,13 +88,19 @@ export const CardCarousel: React.FC<CarouselProps> = ({
               effect={"coverflow"}
               grabCursor={true}
               centeredSlides={true}
-              loop={true}
-              slidesPerView={"auto"}
+              loop={images.length > 1}
+              slidesPerView={1}
+              breakpoints={{
+                640: { slidesPerView: 1.1 },
+                900: { slidesPerView: 1.4 },
+                1200: { slidesPerView: 1.6 },
+              }}
               coverflowEffect={{
                 rotate: 0,
                 stretch: 0,
                 depth: 100,
-                modifier: 2.5,
+                modifier: 2.2,
+                slideShadows: false,
               }}
               pagination={showPagination}
               navigation={
@@ -104,32 +115,32 @@ export const CardCarousel: React.FC<CarouselProps> = ({
             >
               {images.map((image, index) => (
                 <SwiperSlide key={index}>
-                  <div className="carousel-card h-auto rounded-lg shadow-sm border-[color:var(--primary)]">
+                  <figure className="slide-frame">
                     <Image
                       src={image.src}
-                      width={900}
-                      height={720}
-                      className="size-full rounded-xl"
                       alt={image.alt}
+                      // keep width/height as placeholders; object-fit will cover the frame
+                      width={800}
+                      height={1000}
+                      className="next-image"
+                      loading="lazy"
+                      quality={80}
                     />
-                  </div>
+                  </figure>
                 </SwiperSlide>
               ))}
-              {images.map((image, index) => (
-                <SwiperSlide key={index}>
-                  <div className="size-full rounded-3xl">
-                    <Image
-                      src={image.src}
-                      width={200}
-                      height={200}
-                      className="size-full rounded-xl"
-                      alt={image.alt}
-                    />
-                  </div>
-                </SwiperSlide>
-              ))}
+
+              {/* navigation controls rendered so Swiper can bind to them */}
+              {showNavigation && (
+                <>
+                  <div
+                    className="swiper-button-prev"
+                    aria-label="Previous slide"
+                  />
+                  <div className="swiper-button-next" aria-label="Next slide" />
+                </>
+              )}
             </Swiper>
-            {/* </div> */}
           </div>
         </div>
       </div>
