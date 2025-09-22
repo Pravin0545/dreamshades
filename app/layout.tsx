@@ -25,6 +25,9 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://www.dreamshadeshyd.com"),
   alternates: { canonical: "https://www.dreamshadeshyd.com" },
   themeColor: "#221a16",
+  verification: {
+    google: "sCQ79OjiWf1Y0PkKUsIIw-gp5qw4mmKPtK-7WMS2M4E",
+  },
 };
 
 export default function RootLayout({
@@ -38,6 +41,10 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} h-full`}
     >
       <head>
+        <meta
+          name="google-site-verification"
+          content="sCQ79OjiWf1Y0PkKUsIIw-gp5qw4mmKPtK-7WMS2M4E"
+        />
         {/* Google Tag Manager */}
         <Script id="gtm-script" strategy="afterInteractive">
           {`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
