@@ -38,8 +38,6 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} h-full`}
     >
       <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        {/* Google Tag Manager */}
         <Script id="gtm-script" strategy="afterInteractive">
           {`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
           new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -48,6 +46,8 @@ export default function RootLayout({
           })(window,document,'script','dataLayer','GTM-MBCRH7Q9');`}
         </Script>
         {/* End Google Tag Manager */}
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        {/* Google Tag Manager */}
       </head>
       <body className="antialiased h-full">
         {/* Google Tag Manager (noscript) */}
