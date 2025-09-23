@@ -15,7 +15,7 @@ import {
   Scissors,
 } from "lucide-react";
 
-import makeupServiceImage from "@/assets/makeup-service.jpg";
+// import makeupServiceImage from "@/assets/makeup-service.jpg";
 import Group_booking_1 from "@/assets/Group_booking_1.png";
 import Hair_Style_1 from "@/assets/Hair_Style_1.png";
 import Bridal_makeup_1 from "@/assets/Bridal_makeup_1.png";
@@ -275,6 +275,7 @@ export const navItems = [
   { name: "Services", href: "/services" },
   { name: "Training", href: "/training" },
   { name: "Contact", href: "/contact" },
+  { name: "Privacy", href: "/privacy" },
 ];
 
 export const testimonials = [
