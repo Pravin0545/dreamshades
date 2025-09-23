@@ -1,15 +1,5 @@
 import type { NextConfig } from "next";
 
-const ContentSecurityPolicy = [
-  "default-src 'self'",
-  "script-src 'self' 'unsafe-inline' https://www.googletagmanager.com",
-  "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
-  "font-src 'self' https://fonts.gstatic.com",
-  "img-src 'self' data: https://*.googleapis.com https://www.googletagmanager.com",
-  "connect-src 'self' https://www.google-analytics.com https://www.googletagmanager.com",
-  "frame-ancestors 'none'",
-].join("; ");
-
 const nextConfig: NextConfig = {
   reactStrictMode: true,
   swcMinify: true,
@@ -29,7 +19,6 @@ const nextConfig: NextConfig = {
             key: "Permissions-Policy",
             value: "geolocation=(), microphone=(), camera=()",
           },
-          { key: "Content-Security-Policy", value: ContentSecurityPolicy },
         ],
       },
     ];
