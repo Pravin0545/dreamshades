@@ -2,7 +2,6 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
-  swcMinify: true,
   async headers() {
     return [
       {
@@ -18,6 +17,21 @@ const nextConfig: NextConfig = {
           {
             key: "Permissions-Policy",
             value: "geolocation=(), microphone=(), camera=()",
+          },
+          {
+            key: "Content-Security-Policy",
+            value:
+              "default-src 'self'; " +
+              "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://cdn.jsdelivr.net; " +
+              "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; " +
+              "font-src 'self' https://fonts.gstatic.com; " +
+              "img-src 'self' data: https: blob:; " +
+              "connect-src 'self' https://www.google-analytics.com https://www.googletagmanager.com; " +
+              "frame-src 'none'; " +
+              "object-src 'none'; " +
+              "base-uri 'self'; " +
+              "form-action 'self'; " +
+              "frame-ancestors 'none';",
           },
         ],
       },

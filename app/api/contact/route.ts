@@ -3,63 +3,89 @@ import { NextResponse } from "next/server";
 import { connectDB } from "@/lib/mongodb";
 import { Contact } from "@/models/contact";
 import transporter from "@/lib/transporter";
+import { contactSchema } from "@/lib/validations";
+import { ZodError } from "zod";
 
 export async function POST(req: Request) {
   try {
     await connectDB();
-    const data = await req.json();
+    const body = await req.json();
 
-    // Basic validation
-    const { name, email, phone, service, message } = data ?? {};
-    if (!name || !email || !phone) {
+    // Validate request body with Zod
+    const validatedData = contactSchema.parse(body);
+
+    const saved = await Contact.create(validatedData);
+
+    const ownerEmail = process.env.OWNER_EMAIL || "dreamshades.hyd@gmail.com";
+    const fromEmail = process.env.SMTP_USER;
+
+    // Send acknowledgement to user
+    await transporter.sendMail({
+      from: fromEmail,
+      to: validatedData.email,
+      subject: "We received your message",
+      text:
+        `Hi ${validatedData.name},\n\n` +
+        `Thanks for contacting us${
+          validatedData.service ? ` about "${validatedData.service}"` : ""
+        }.\n\n` +
+        `${validatedData.message ? `Message: ${validatedData.message}\n\n` : ""}` +
+        `We will contact you at ${validatedData.phone} soon.\n\nBest regards,\nDreamShades Team`,
+    });
+
+    // Send notification to owner
+    await transporter.sendMail({
+      from: fromEmail,
+      to: ownerEmail,
+      subject: "New Contact Form Submission",
+      text:
+        `New contact submission:\n\n` +
+        `Name: ${validatedData.name}\nEmail: ${validatedData.email}\nPhone: ${validatedData.phone}\n` +
+        `Service: ${validatedData.service || "N/A"}\n` +
+        `Message: ${validatedData.message || "N/A"}\n` +
+        `Contact ID: ${saved._id}`,
+    });
+
+    return NextResponse.json(
+      {
+        success: true,
+        message: "Message saved. We'll contact you shortly.",
+      },
+      { status: 201 }
+    );
+  } catch (error) {
+    // Handle Zod validation errors
+    if (error instanceof ZodError) {
       return NextResponse.json(
-        { error: "name, email and phone are required" },
+        {
+          success: false,
+          error: "Validation failed",
+          details: error.issues.map((err) => ({
+            field: err.path.join("."),
+            message: err.message,
+          })),
+        },
         { status: 400 }
       );
     }
 
-    const saved = await Contact.create({
-      name,
-      email,
-      phone,
-      service,
-      message,
-    });
+    // Handle database errors
+    if (error instanceof Error) {
+      console.error("Contact API error:", error.message);
 
-    const ownerEmail = process.env.OWNER_EMAIL ?? "owner@example.com";
+      // Check for duplicate key error
+      if (error.message.includes("duplicate key")) {
+        return NextResponse.json(
+          { success: false, error: "This contact already exists" },
+          { status: 409 }
+        );
+      }
+    }
 
-    // Acknowledgement to user
-    await transporter.sendMail({
-      from: process.env.SMTP_USER,
-      to: email,
-      subject: "We received your message",
-      text:
-        `Hi ${name},\n\n` +
-        `Thanks for contacting us about "${
-          service ?? "General Inquiry"
-        }".\n\n` +
-        `Message: ${message ?? "(no message)"}\n\n` +
-        `We will contact you at ${phone} soon.\n\nRegards,\nTeam`,
-    });
-
-    // Notification to owner
-    await transporter.sendMail({
-      from: process.env.SMTP_USER,
-      to: ownerEmail,
-      subject: "New contact form submission",
-      text:
-        `New contact submission:\n\n` +
-        `Name: ${name}\nEmail: ${email}\nPhone: ${phone}\nService: ${
-          service ?? "-"
-        }\nMessage: ${message ?? "-"}\nID: ${saved._id}\n`,
-    });
-
+    // Generic server error
     return NextResponse.json(
-      { status: 201, message: "Message saved. We'll contact you shortly." },
-      { status: 201 }
+      { success: false, error: "Unable to process your request. Please try again later." },
+      { status: 500 }
     );
-  } catch (err) {
-    console.error("Contact API error:", err);
-    return NextResponse.json({ error: "Server error" }, { status: 500 });
   }
 }

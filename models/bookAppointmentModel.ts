@@ -12,6 +12,7 @@ const bookAppointmentSchema = new Schema(
       required: [true, "Email is required"],
       lowercase: true,
       trim: true,
+      match: [/^\S+@\S+\.\S+$/, "Please enter a valid email address"],
     },
     phone: {
       type: String,
@@ -39,32 +40,6 @@ const bookAppointmentSchema = new Schema(
   {
     timestamps: true,
   }
-  //   {
-  //     name: { type: String, required: true },
-  //     email: { type: String, required: true },
-  //     phone: { type: String, required: true },
-  //     service: { type: String, required: true },
-  //     date: { type: Date, required: true },
-  //     time: { type: String, required: true },
-  //     message: { type: String, required: true },
-  //   },
-  //   {
-  //     timestamps: true,
-  //     toJSON: {
-  //       transform: (doc, ret) => {
-  //         ret.id = ret._id.toString(); // ✅ convert _id to id
-  //         delete ret._id;
-  //         delete ret.__v;
-  //       },
-  //     },
-  //     toObject: {
-  //       transform: (doc, ret) => {
-  //         ret.id = ret._id.toString();
-  //         delete ret._id;
-  //         delete ret.__v;
-  //       },
-  //     },
-  //   }
 );
 
 export const BookAppointment =

@@ -8,6 +8,7 @@ const enrollCourseSchema = new Schema(
       required: [true, "Email is required"],
       lowercase: true,
       trim: true,
+      match: [/^\S+@\S+\.\S+$/, "Please enter a valid email address"],
     },
     phone: {
       type: String,

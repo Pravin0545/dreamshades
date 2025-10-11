@@ -1,62 +1,89 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { NextResponse } from "next/server";
 import { connectDB } from "@/lib/mongodb";
 import { EnrollCourse } from "@/models/enrollCourse";
 import transporter from "@/lib/transporter";
+import { enrollCourseSchema } from "@/lib/validations";
+import { ZodError } from "zod";
 
 export async function POST(req: Request) {
   try {
     await connectDB();
-    const data = await req.json();
+    const body = await req.json();
 
-    // Optional: basic validation
-    if (
-      !data.name ||
-      !data.email ||
-      !data.phone ||
-      !data.course ||
-      !data.experience ||
-      !data.message
-    ) {
+    // Validate request body with Zod
+    const validatedData = enrollCourseSchema.parse(body);
+
+    const newEnrollment = await EnrollCourse.create(validatedData);
+
+    const ownerEmail = process.env.OWNER_EMAIL || "dreamshades.hyd@gmail.com";
+    const fromEmail = process.env.SMTP_USER;
+
+    // Send confirmation email to customer
+    await transporter.sendMail({
+      from: fromEmail,
+      to: validatedData.email,
+      subject: "Thank you for your course inquiry!",
+      text:
+        `Hi ${validatedData.name},\n\nThank you for your inquiry for the course "${validatedData.course}".\n` +
+        `Course: ${validatedData.course}\nExperience: ${validatedData.experience}\n` +
+        `Message: ${validatedData.message}\n\n` +
+        `We will contact you at ${validatedData.phone} soon.\n\nBest regards,\nDreamShades Academy Team`,
+    });
+
+    // Send notification email to owner
+    await transporter.sendMail({
+      from: fromEmail,
+      to: ownerEmail,
+      subject: "New Course Enrollment Inquiry",
+      text:
+        `New course enrollment inquiry received:\n\n` +
+        `Name: ${validatedData.name}\nEmail: ${validatedData.email}\nPhone: ${validatedData.phone}\n` +
+        `Course: ${validatedData.course}\nExperience: ${validatedData.experience}\n` +
+        `Message: ${validatedData.message}\n` +
+        `Enrollment ID: ${newEnrollment._id}`,
+    });
+
+    return NextResponse.json(
+      {
+        success: true,
+        message:
+          "We'll contact you within 24 hours to discuss your course details.",
+      },
+      { status: 201 }
+    );
+  } catch (error) {
+    // Handle Zod validation errors
+    if (error instanceof ZodError) {
       return NextResponse.json(
-        { error: "All fields are required" },
+        {
+          success: false,
+          error: "Validation failed",
+          details: error.issues.map((err) => ({
+            field: err.path.join("."),
+            message: err.message,
+          })),
+        },
         { status: 400 }
       );
     }
 
-    const newEnrollment = await EnrollCourse.create(data);
+    // Handle database errors
+    if (error instanceof Error) {
+      console.error("Error creating enrollment:", error.message);
 
-    const ownerEmail = "dreamshades.hyd@gmail.com";
+      // Check for duplicate key error
+      if (error.message.includes("duplicate key")) {
+        return NextResponse.json(
+          { success: false, error: "This enrollment already exists" },
+          { status: 409 }
+        );
+      }
+    }
 
-    await transporter.sendMail({
-      from: process.env.SMTP_USER,
-      to: data.email,
-      subject: "Thank you for your inquiry!",
-      text:
-        `Hi ${data.name},\n\nThank you for your inquiry for the course "${data.course}".\n` +
-        `Course: ${data.course}\nExperience: ${data.experience}\n` +
-        `Message: ${data.message}\n\n` +
-        `We will contact you at ${data.phone} soon.\n\nBest regards,\nAcademy Team`,
-    });
-
-    await transporter.sendMail({
-      from: process.env.SMTP_USER,
-      to: ownerEmail,
-      subject: "New Inquiry Received",
-      text:
-        `New inquiry received:\n\n` +
-        `Name: ${data.name}\nEmail: ${data.email}\nPhone: ${data.phone}\n` +
-        `Course: ${data.course}\nExperience: ${data.experience}\n` +
-        `Message: ${data.message}`,
-    });
-
-    return NextResponse.json({
-      status: 201,
-      message:
-        "We'll contact you within 24 hours to discuss your course details.",
-    });
-  } catch (error) {
-    console.error("Error creating enrollment:", error);
-    return NextResponse.json({ error: "Server Error" }, { status: 500 });
+    // Generic server error
+    return NextResponse.json(
+      { success: false, error: "Unable to process your request. Please try again later." },
+      { status: 500 }
+    );
   }
 }
